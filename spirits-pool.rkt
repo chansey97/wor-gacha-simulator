@@ -3,6 +3,12 @@
 (require "./pool.rkt")
 (provide (all-defined-out))
 
+(define spirits-pool%-hard-pity-threshold 199)
+
+(define spirits-pool%-soft-pity-threshold 180)
+
+(define spirits-pool%-soft-pity-boost #e0.05)
+
 ;; 英灵系卡池（普通英灵召唤、特定英灵召唤）
 (define spirits-pool%
   (class pool%
@@ -38,7 +44,7 @@
              [five-stars-prob (sum-prob five-stars)]
              [others (filter (λ (r) (not (= (rarity-stars r) 5))) base-rarities)]
              [others-prob (sum-prob others)]
-             [boost (* #e0.05 n)] ; 5%提升
+             [boost (* spirits-pool%-soft-pity-boost n)] ; 5%提升
              [scaled-rarities
               (for/list ([r base-rarities])
                 (cond
@@ -64,7 +70,7 @@
     (define/override (pull)
       (define current-pity (unbox shared-pity))
       (cond
-        [(>= current-pity 199)
+        [(>= current-pity spirits-pool%-hard-pity-threshold)
          ;; 硬保底：必定获得5星英雄
          (update-rarities-for-hard-pity)
          (define rarity (select-rarity))
@@ -72,10 +78,10 @@
          (set-box! shared-pity 0)
          (define hero (select-hero rarity))
          (list hero)]
-        [(and (>= current-pity 180)
+        [(and (>= current-pity spirits-pool%-soft-pity-threshold)
               is-soft-pity-on)
          ;; 软保底：每次5星英雄总概率提升5%，非5星总概率减少5%
-         (update-rarities-for-soft-pity (+ (- current-pity 180) 1))
+         (update-rarities-for-soft-pity (+ (- current-pity spirits-pool%-soft-pity-threshold) 1))
          (define rarity (select-rarity))
          (if (= (rarity-stars rarity) 5)
              (begin (reset-rarities)

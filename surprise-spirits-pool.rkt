@@ -4,6 +4,12 @@
 (require "./spirits-pool.rkt")
 (provide (all-defined-out))
 
+(define surprise-spirits-pool%-hard-pity-threshold spirits-pool%-hard-pity-threshold)
+
+(define surprise-spirits-pool%-soft-pity-threshold spirits-pool%-soft-pity-threshold)
+
+(define surprise-spirits-pool%-soft-pity-boost spirits-pool%-soft-pity-boost)
+
 ;; 惊喜英灵召唤 (1+1)
 (define surprise-spirits-pool%
   (class spirits-pool%
@@ -18,7 +24,7 @@
         (cond
           [(and (not bonus-actived) (= (rarity-stars rarity) 5))
            (set! bonus-actived #t)
-           (set-box! shared-pity 199)
+           (set-box! shared-pity surprise-spirits-pool%-hard-pity-threshold)
            (match-let ([(list bonus-hero) (super pull)])
              (append (list hero)
                      (list bonus-hero)))]

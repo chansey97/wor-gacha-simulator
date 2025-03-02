@@ -2,6 +2,14 @@
 (require "./spirits-pool.rkt")
 (provide (all-defined-out))
 
+(define limited-spirits-pool%-hard-pity-threshold spirits-pool%-hard-pity-threshold)
+
+(define limited-spirits-pool%-soft-pity-threshold spirits-pool%-soft-pity-threshold)
+
+(define limited-spirits-pool%-soft-pity-boost spirits-pool%-soft-pity-boost)
+
+(define limited-spirits-pool%-own-pity-threshold 199)
+
 ;; 限定英灵召唤（带独立保底）
 (define limited-spirits-pool%
   (class spirits-pool%
@@ -15,7 +23,7 @@
         [(>= own-pity 0)
          (cond
            ;; 200 抽必出限定, 关闭限定保底
-           [(>= own-pity 199)
+           [(>= own-pity limited-spirits-pool%-own-pity-threshold)
             (super reset)
             (set! own-pity -1)
             (list up-hero)]

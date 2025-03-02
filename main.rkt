@@ -14,7 +14,7 @@
 (define is-soft-pity-on #f)
 
 (define (main)
-  (define spirits-shared-pity (box 0))  ; 英灵系共享保底
+  (define spirits-shared-pity (box 0)) ; 英灵系共享保底
   (define ancient-shared-pity (box 0)) ; 远古系共享保底
   (define divine-shared-pity (box 0))  ; 神圣系共享保底
 

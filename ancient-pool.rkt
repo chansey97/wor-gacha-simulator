@@ -3,6 +3,12 @@
 (require "./pool.rkt")
 (provide (all-defined-out))
 
+(define ancient-pool%-hard-pity-threshold 199)
+
+(define ancient-pool%-soft-pity-threshold 185)
+
+(define ancient-pool%-soft-pity-boost #e0.08)
+
 ;; 远古系卡池（保底仅针对领主）
 (define ancient-pool%
   (class pool%
@@ -36,7 +42,7 @@
                                               (rarity-is-lord r))))
                              base-rarities)]
              [others-prob (sum-prob others)]
-             [boost (* #e0.08 n)] ; 8%提升
+             [boost (* ancient-pool%-soft-pity-boost n)] ; 8%提升
              [scaled-rarities
               (for/list ([r base-rarities])
                 (cond
@@ -61,7 +67,7 @@
     (define/override (pull)
       (define current-pity (unbox shared-pity))
       (cond
-        [(>= current-pity 199)
+        [(>= current-pity ancient-pool%-hard-pity-threshold)
          ;; 硬保底：必定获得5星领主英雄
          (update-rarities-for-hard-pity)
          (define rarity (select-rarity))
@@ -69,10 +75,10 @@
          (set-box! shared-pity 0)
          (define hero (select-hero rarity))
          (list hero)]
-        [(and (>= current-pity 185)
+        [(and (>= current-pity ancient-pool%-soft-pity-threshold)
               is-soft-pity-on)
          ;; 软保底：每次5星领主概率提升8%，非5星总概率减少8%
-         (update-rarities-for-soft-pity (+ (- current-pity 185) 1))
+         (update-rarities-for-soft-pity (+ (- current-pity ancient-pool%-soft-pity-threshold) 1))
          (define rarity (select-rarity))
          (if (and (= (rarity-stars rarity) 5)
                   (rarity-is-lord rarity))

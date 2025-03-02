@@ -35,10 +35,21 @@
                                            [probability (exact->inexact (rarity-probability r))]
                                            [heroes '()])))
           (cumulative-cleanup (map exact->inexact cumulative)))
-      (printf "rarities\n")
+      (printf "rarities-cleanup\n")
       (pretty-print rarities-cleanup)
-      (printf "cumulative\n")
+      (printf "cumulative-cleanup\n")
       (pretty-print cumulative-cleanup))
     ))
 
-
+;; (test-cumulative)
+;; rarities-cleanup
+;; (list
+;;  (rarity "5星领主英雄" 0.0004 5 #t '())
+;;  (rarity "5星普通英雄" 0.0046 5 #f '())
+;;  (rarity "4星领主英雄" 0.0012 4 #t '())
+;;  (rarity "4星普通英雄" 0.0788 4 #f '())
+;;  (rarity "3星领主英雄" 0.0399 3 #t '())
+;;  (rarity "3星普通英雄" 0.3751 3 #f '())
+;;  (rarity "2星普通英雄" 0.5 2 #f '()))
+;; cumulative-cleanup
+;; '(0.0004 0.005 0.0062 0.085 0.1249 0.5 1.0)
