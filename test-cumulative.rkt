@@ -4,6 +4,7 @@
 (require racket/class)
 (require "./structs.rkt")
 (require "./utils.rkt")
+(require "./pity-system.rkt")
 (require "./spirits-pool.rkt")
 (require "./limited-spirits-pool.rkt")
 (require "./surprise-spirits-pool.rkt")
@@ -11,9 +12,16 @@
 (require "./divine-pool.rkt")
 (require "./rarities.rkt")
 
+(define is-soft-pity-on #f)
+
 (define (test-cumulative)
   ;; 英灵系共享保底
-  (define spirits-shared-pity (box 0))
+  (define spirits-pity-system
+    (new pity-system%
+         [hard-pity-threshold 199]
+         [soft-pity-threshold 180]
+         [soft-pity-boost #e0.05]
+         [is-soft-pity-on is-soft-pity-on]))
   
   ;; 普通英灵召唤
   (define normal-spirits-rarities spirits-rarities)
@@ -21,15 +29,12 @@
   (define normal-spirits-pool
     (new spirits-pool%
          [name normal-spirits-pool-name]
-         [shared-pity spirits-shared-pity]
-         [rarities normal-spirits-rarities]
-         [is-soft-pity-on #t]))
+         [base-rarities normal-spirits-rarities]
+         [pity-system spirits-pity-system]))
 
-  (define pool normal-spirits-pool)
-
-  (let* ((rarities (get-field rarities pool))
+  (let* ((pool normal-spirits-pool)
+         (rarities (get-field base-rarities pool))
          (cumulative (send pool build-cumulative rarities)))
-
     (let ((rarities-cleanup (for/list ([r rarities])
                               (struct-copy rarity r
                                            [probability (exact->inexact (rarity-probability r))]

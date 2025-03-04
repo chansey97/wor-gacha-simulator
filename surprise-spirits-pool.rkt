@@ -4,33 +4,31 @@
 (require "./spirits-pool.rkt")
 (provide (all-defined-out))
 
-(define surprise-spirits-pool%-hard-pity-threshold spirits-pool%-hard-pity-threshold)
-
-(define surprise-spirits-pool%-soft-pity-threshold spirits-pool%-soft-pity-threshold)
-
-(define surprise-spirits-pool%-soft-pity-boost spirits-pool%-soft-pity-boost)
-
 ;; 惊喜英灵召唤 (1+1)
 (define surprise-spirits-pool%
   (class spirits-pool%
     (super-new)
-    (init-field [bonus-actived #f])  ; 额外奖励已被激活?
-    (inherit-field rarities)
-    (inherit-field shared-pity)
+    
+    ;; 额外奖励已被激活?
+    (init-field [bonus-actived #f])
+    
+    (inherit-field base-rarities)
+    (inherit-field pity-system)
     
     (define/override (pull)
-      (match-let ([(list hero) (super pull)])
-        (define rarity (find-rarity rarities hero))
-        (cond
-          [(and (not bonus-actived) (= (rarity-stars rarity) 5))
-           (set! bonus-actived #t)
-           (set-box! shared-pity surprise-spirits-pool%-hard-pity-threshold)
-           (match-let ([(list bonus-hero) (super pull)])
-             (append (list hero)
-                     (list bonus-hero)))]
-          [else
-           (list hero)])
-        ))
+      (let ((hard-pity-threshold (get-field hard-pity-threshold pity-system)))
+        (match-let ([(list hero) (super pull)])
+          (let ((rarity (find-rarity base-rarities hero)))
+            (cond
+              [(and (not bonus-actived) (= (rarity-stars rarity) 5))
+               (set! bonus-actived #t)
+               (set-field! current-pity pity-system hard-pity-threshold)
+               (match-let ([(list bonus-hero) (super pull)])
+                 (append (list hero)
+                         (list bonus-hero)))]
+              [else
+               (list hero)]))
+          )))
     
     (define/override (reset)
       (super reset)

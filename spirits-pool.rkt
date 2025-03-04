@@ -1,105 +1,79 @@
 #lang racket
 (require "./structs.rkt")
 (require "./pool.rkt")
+(require "./pity-system.rkt")
 (provide (all-defined-out))
-
-(define spirits-pool%-hard-pity-threshold 199)
-
-(define spirits-pool%-soft-pity-threshold 180)
-
-(define spirits-pool%-soft-pity-boost #e0.05)
 
 ;; 英灵系卡池（普通英灵召唤、特定英灵召唤）
 (define spirits-pool%
   (class pool%
     (super-new)
     
-    (inherit-field rarities)
-    (inherit-field shared-pity)
-    (init-field [is-soft-pity-on #f])
-    
+    (inherit-field base-rarities)
+    (inherit-field pity-system)
+
     (inherit select-rarity)
     (inherit select-hero)
-
-    (define base-rarities rarities)
 
     (define/public (sum-prob rs)
       (foldl + 0 (map rarity-probability rs)))
 
-    (define/public (reset-rarities)
-      (set! rarities base-rarities))
-
-    (define/public (update-rarities-for-hard-pity)
-      (let* ([five-stars (filter (λ (r) (= (rarity-stars r) 5)) base-rarities)]
-             [five-stars-prob (sum-prob five-stars)])
-        (set! rarities
-              (for/list ([r base-rarities])
-                (if (= (rarity-stars r) 5)
-                    (struct-copy rarity r [probability (/ (rarity-probability r) five-stars-prob)])
-                    (struct-copy rarity r [probability 0]))))))
-
-    ;; 更新稀有度列表为软保底（5星概率提升5%）
-    (define/public (update-rarities-for-soft-pity n)
-      (let* ([five-stars (filter (λ (r) (= (rarity-stars r) 5)) base-rarities)]
-             [five-stars-prob (sum-prob five-stars)]
-             [others (filter (λ (r) (not (= (rarity-stars r) 5))) base-rarities)]
-             [others-prob (sum-prob others)]
-             [boost (* spirits-pool%-soft-pity-boost n)] ; 5%提升
-             [scaled-rarities
-              (for/list ([r base-rarities])
-                (cond
-                  [(= (rarity-stars r) 5)
-                   ;; 5星英雄概率按比例增加
-                   ;; 新概率 = 原概率 + 提升量 * (原概率 / 原5星总概率)
-                   (let ([scale-factor (/ (rarity-probability r) five-stars-prob)])
-                     (struct-copy rarity r
-                                  [probability (+ (rarity-probability r)
-                                                  (* boost scale-factor))]))
-                   ]
-                  [else
-                   ;; 非5星英雄概率按比例减少
-                   ;; 新概率 = 原概率 - 提升量 * (原概率 / 原非5星总概率)
-                   (let ([scale-factor (/ (rarity-probability r) others-prob)])
-                     (struct-copy rarity r
-                                  [probability (max 0 (- (rarity-probability r)
-                                                         (* boost scale-factor)))]))
-                   ]))])
-        (set! rarities scaled-rarities)))
+    ;; 基于保底，计算稀有度列表
+    (define/public (calc-rarities)
+      (let ((hard-pity-threshold (get-field hard-pity-threshold pity-system))
+            (soft-pity-threshold (get-field soft-pity-threshold pity-system))
+            (is-soft-pity-on (get-field is-soft-pity-on pity-system))
+            (current-pity (get-field current-pity pity-system)))
+        (cond
+          [(>= current-pity hard-pity-threshold)
+           ;; 硬保底：获得 5 星英雄的概率提升至 100%
+           (let* ([five-stars (filter (λ (r) (= (rarity-stars r) 5)) base-rarities)]
+                  [five-stars-prob (sum-prob five-stars)])
+             (for/list ([r base-rarities])
+               (if (= (rarity-stars r) 5)
+                   (struct-copy rarity r [probability (/ (rarity-probability r) five-stars-prob)])
+                   (struct-copy rarity r [probability 0]))))]
+          [(and is-soft-pity-on (>= current-pity soft-pity-threshold))
+           ;; 软保底：每次 5 星英雄总概率提升5%，非 5 星总概率减少5%
+           (let* ((soft-pity-threshold (get-field soft-pity-threshold pity-system))
+                  (soft-pity-boost (get-field soft-pity-boost pity-system))
+                  (current-pity (get-field current-pity pity-system))
+                  (five-stars (filter (λ (r) (= (rarity-stars r) 5)) base-rarities))
+                  (five-stars-prob (sum-prob five-stars))
+                  (others (filter (λ (r) (not (= (rarity-stars r) 5))) base-rarities))
+                  (others-prob (sum-prob others))
+                  (boost (* soft-pity-boost (+ (- current-pity soft-pity-threshold) 1))) ; 5%提升
+                  (scaled-rarities
+                   (for/list ([r base-rarities])
+                     (cond
+                       [(= (rarity-stars r) 5)
+                        ;; 5星英雄概率按比例增加
+                        ;; 新概率 = 原概率 + 提升量 * (原概率 / 原5星总概率)
+                        (let ([scale-factor (/ (rarity-probability r) five-stars-prob)])
+                          (struct-copy rarity r
+                                       [probability (+ (rarity-probability r)
+                                                       (* boost scale-factor))]))]
+                       [else
+                        ;; 非5星英雄概率按比例减少
+                        ;; 新概率 = 原概率 - 提升量 * (原概率 / 原非5星总概率)
+                        (let ([scale-factor (/ (rarity-probability r) others-prob)])
+                          (struct-copy rarity r
+                                       [probability (max 0 (- (rarity-probability r)
+                                                              (* boost scale-factor)))]))]
+                       ))))
+             scaled-rarities)]
+          [else
+           ;; 无保底：使用基础稀有度列表
+           base-rarities]
+          )))
     
-    ;; 英灵召唤的默认抽卡逻辑
     (define/override (pull)
-      (define current-pity (unbox shared-pity))
-      (cond
-        [(>= current-pity spirits-pool%-hard-pity-threshold)
-         ;; 硬保底：必定获得5星英雄
-         (update-rarities-for-hard-pity)
-         (define rarity (select-rarity))
-         (reset-rarities)
-         (set-box! shared-pity 0)
-         (define hero (select-hero rarity))
-         (list hero)]
-        [(and (>= current-pity spirits-pool%-soft-pity-threshold)
-              is-soft-pity-on)
-         ;; 软保底：每次5星英雄总概率提升5%，非5星总概率减少5%
-         (update-rarities-for-soft-pity (+ (- current-pity spirits-pool%-soft-pity-threshold) 1))
-         (define rarity (select-rarity))
-         (if (= (rarity-stars rarity) 5)
-             (begin (reset-rarities)
-                    (set-box! shared-pity 0))
-             (set-box! shared-pity (+ current-pity 1)))
-         (define hero (select-hero rarity))
-         (list hero)]
-        [else
-         ;; 正常抽卡
-         (define rarity (select-rarity))
-         (if (= (rarity-stars rarity) 5)
-             (set-box! shared-pity 0)
-             (set-box! shared-pity (+ current-pity 1)))
-         (define hero (select-hero rarity))    
-         (list hero)])
-      )
-
-    (define/override (reset)
-      (super reset)
-      (reset-rarities))
+      (let* ((rarities (calc-rarities))
+             (rarity (select-rarity rarities))
+             (hero (select-hero rarity))
+             (current-pity (get-field current-pity pity-system)))
+        (if (= (rarity-stars rarity) 5)
+            (set-field! current-pity pity-system 0)
+            (set-field! current-pity pity-system (+ current-pity 1)))
+        (list hero)))
     ))

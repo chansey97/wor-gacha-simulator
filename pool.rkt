@@ -2,22 +2,24 @@
 (require racket/class)
 (require "./structs.rkt")
 (require "./utils.rkt")
+(require "./pity-system.rkt")
 (provide (all-defined-out))
 
 ;; 卡池的抽象基类
 (define pool%
   (class object%
     (super-new)
-    (init-field name)             ; 卡池名字
-    (init-field rarities)         ; 卡池稀有度列表
-    (init-field [shared-pity #f]) ; 共享保底计数器（需为 box）
+    
+    (init-field name)
+    (init-field base-rarities)
+    (init-field pity-system)
 
     ;; 从 rarities 表, 构建累积概率分布
-    (define/public (build-cumulative rs)
-      (scanl1 + (map rarity-probability rs)))
+    (define/public (build-cumulative rarities)
+      (scanl1 + (map rarity-probability rarities)))
     
     ;; 第一次转盘, 决定你抽到的英雄品质
-    (define/public (select-rarity)
+    (define/public (select-rarity rarities)
       ;; 这里使用 (* (inexact->exact (random)) (last cumulative)) 返回 [0, (last cumulative))
       ;; 是因为可能出现软保底先于硬保底达到 100%
       ;; 比如：远古池是从 185 抽开始，每抽5星领主概率提升8%
@@ -33,27 +35,25 @@
       ;; 注：神圣池的例子是不会发生的，因为硬保底保证了第 20 抽必出5星英雄，这里只是解释动机。
       (let* ((cumulative (build-cumulative rarities))
              ;; TODO: Do we really need (inexact->exact (random))?
-             (r (* (inexact->exact (random)) (last cumulative))))
+             (rand (* (inexact->exact (random)) (last cumulative))))
         (for/first ([prob cumulative]
-                    [rarity rarities]
-                    #:when (< r prob))
-          rarity)))
+                    [r rarities]
+                    #:when (< rand prob))
+          r)))
 
     ;; 第二次转盘, 决定你获得该品质下的具体英雄
     (define/public (select-hero rarity)
       (list-ref (rarity-heroes rarity) (random (length (rarity-heroes rarity)))))
     
-    ;; 核心抽卡方法，子类可以覆盖该方法
     (define/public (pull)
-      (define current-pity (unbox shared-pity))
-      (define rarity (select-rarity))
-      (define hero (select-hero rarity))
-      (set-box! shared-pity (+ current-pity 1))
-      (list hero))
+      (let* ((current-pity (get-field current-pity pity-system))
+             (rarity (select-rarity base-rarities))
+             (hero (select-hero rarity)))
+        (set-field! current-pity pity-system (+ current-pity 1))
+        (list hero)))
 
-    ;; 核心抽卡方法，子类可以覆盖该方法
     (define/public (reset)
-      (set-box! shared-pity 0))
-    ))
+      (set-field! current-pity pity-system 0)
+      )))
 
 
