@@ -491,7 +491,15 @@
          ;;          (list-ref lst-of-5-stars-count max-index)
          ;;          (list-ref lst-of-status-chains max-index))))
          (individual-pulls-per-5-stars-min (exact->inexact (apply min individual-pulls-per-5-stars-samples)))
-         (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples))))
+         (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples)))
+         ;; (debug-detail
+         ;;  (let ((median-index (index-of individual-pulls-per-5-stars-samples 100)))
+         ;;    (if median-index
+         ;;        (list (list-ref lst-of-pull-count median-index)
+         ;;              (list-ref lst-of-5-stars-count median-index)
+         ;;              (list-ref lst-of-status-chains median-index))
+         ;;        #f)))
+         )
     (printf "==== 统计 ~a + ~a 采用卡双金策略时，每~a抽数 （样本量：~a） ====\n"
             limited-pool-name
             adjoint-pool-name
@@ -513,6 +521,7 @@
     ;; (printf "最大值的策略细节：~a\n" individual-pulls-per-5-stars-max-detail)
     (printf "最小值: ~a\n" individual-pulls-per-5-stars-min)
     (printf "标准差: ~a\n" individual-pulls-per-5-stars-stddev)
+    ;; (printf "debug-detail：~a\n" debug-detail)
     (printf "\n")
     ))
 
@@ -521,3 +530,5 @@
 ;;   (run-statistics-7 10000 0 i))
 
 ;; (run-statistics-7 10000 0 190)
+
+;; (run-statistics-7 10000 0 100)
