@@ -2,7 +2,6 @@
 (require racket/class)
 (require "./structs.rkt")
 (require "./utils.rkt")
-(require "./pity-system.rkt")
 (provide (all-defined-out))
 
 ;; 卡池的抽象基类
@@ -50,7 +49,7 @@
              (rarity (select-rarity base-rarities))
              (hero (select-hero rarity)))
         (set-field! current-pity pity-system (+ current-pity 1))
-        (list hero)))
+        (list (card hero rarity))))
 
     (define/public (reset)
       (set-field! current-pity pity-system 0)

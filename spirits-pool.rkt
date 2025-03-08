@@ -75,5 +75,5 @@
         (if (= (rarity-stars rarity) 5)
             (set-field! current-pity pity-system 0)
             (set-field! current-pity pity-system (+ current-pity 1)))
-        (list hero)))
+        (list (card hero rarity))))
     ))

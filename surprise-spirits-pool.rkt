@@ -1,6 +1,5 @@
 #lang racket
 (require "./structs.rkt")
-(require "./utils.rkt")
 (require "./spirits-pool.rkt")
 (provide (all-defined-out))
 
@@ -17,17 +16,16 @@
     
     (define/override (pull)
       (let ((hard-pity-threshold (get-field hard-pity-threshold pity-system)))
-        (match-let ([(list hero) (super pull)])
-          (let ((rarity (find-rarity base-rarities hero)))
-            (cond
-              [(and (not bonus-actived) (= (rarity-stars rarity) 5))
-               (set! bonus-actived #t)
-               (set-field! current-pity pity-system hard-pity-threshold)
-               (match-let ([(list bonus-hero) (super pull)])
-                 (append (list hero)
-                         (list bonus-hero)))]
-              [else
-               (list hero)]))
+        (match-let ([(list card) (super pull)])
+          (cond
+            [(and (not bonus-actived)
+                  (= (rarity-stars (card-rarity card)) 5))
+             (set! bonus-actived #t)
+             (set-field! current-pity pity-system hard-pity-threshold)
+             (match-let ([(list bonus-card) (super pull)])
+               (list card bonus-card))]
+            [else
+             (list card)])
           )))
     
     (define/override (reset)

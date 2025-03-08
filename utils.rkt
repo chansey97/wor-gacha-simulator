@@ -13,30 +13,6 @@
       '()
       (scanl f (car lst) (cdr lst))))
 
-
-;; TODO:
-;; find-rarity - 从 hero 反查 rarity，性能不是很好
-(define (find-rarity rarities hero)
-  (findf (λ (r) (member hero (rarity-heroes r))) rarities))
-
-;; TODO: 做了 cache 后，速度更慢了
-;; 其实并不需要这个功能，我们只需要返回 hero 的品质，而不需要其中的概率。
-;; 因此可以做一张全局表，但是其他地方需要改动。
-;; (define find-rarity
-;;   (let ((memo (make-hash)))
-;;     (λ (rarities hero)
-;;       (cond
-;;         [(hash-has-key? memo rarities)
-;;          (let ((cache (hash-ref memo rarities)))
-;;            (hash-ref cache hero))]
-;;         [else
-;;          (let ((cache (make-hash)))
-;;            (for ([r rarities])
-;;              (for ([h (rarity-heroes r)])
-;;                (hash-set! cache h r)))
-;;            (hash-set! memo rarities cache)
-;;            (hash-ref cache hero))]))))
-
 ;; 增加限定英雄 n=15 或 UP英雄 n=14
 (define (add-hero rarities hero stars is-lord n)
   (for/list ([r rarities])

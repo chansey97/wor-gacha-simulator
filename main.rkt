@@ -270,9 +270,10 @@
       ["b"
        (printf "返回主菜单\n")]
       ["s"
-       (for ([hero (send pool pull)]
+       (for ([card (send pool pull)]
              [i (in-naturals)])
-         (let ((rarity (find-rarity pool-rarities hero)))
+         (let ((hero (card-hero card))
+               (rarity (card-rarity card)))
            (if (= i 0)
                (printf "~a ~a\n" (rarity-name rarity) hero)
                (printf "+ ~a ~a\n" (rarity-name rarity) hero))))
@@ -282,9 +283,10 @@
        (loop)]
       ["m"
        (for ([i (in-range 10)])
-         (for ([hero (send pool pull)]
+         (for ([card (send pool pull)]
                [i (in-naturals)])
-           (let ((rarity (find-rarity pool-rarities hero)))
+           (let ((hero (card-hero card))
+                 (rarity (card-rarity card)))
              (if (= i 0)
                  (printf "~a ~a\n" (rarity-name rarity) hero)
                  (printf "~a ~a (*)\n" (rarity-name rarity) hero)))))

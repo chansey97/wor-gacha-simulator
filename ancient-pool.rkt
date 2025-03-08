@@ -1,7 +1,6 @@
 #lang racket
 (require "./structs.rkt")
 (require "./pool.rkt")
-(require "./pity-system.rkt")
 (provide (all-defined-out))
 
 ;; 远古系卡池（保底仅针对领主）
@@ -69,5 +68,5 @@
         (if (and (= (rarity-stars rarity) 5) (rarity-is-lord rarity))
             (set-field! current-pity pity-system 0)
             (set-field! current-pity pity-system (+ current-pity 1)))
-        (list hero)))
+        (list (card hero rarity))))
     ))
