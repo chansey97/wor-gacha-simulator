@@ -1,5 +1,7 @@
 ## 以下回答基于国服，只考虑出金率，不考虑英雄的强度
 
+最新版见：https://github.com/chansey97/wor-gacha-simulator
+
 **Q:** 惊喜池 vs 狂欢池，哪个池子更优？
 
 **A:** 惊喜池 更优。
