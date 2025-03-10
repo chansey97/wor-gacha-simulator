@@ -2,6 +2,7 @@
 (require "./structs.rkt")
 (provide (all-defined-out))
 
+;; list functions
 (define (scanl f q lst)
   (cons q 
         (if (null? lst)
