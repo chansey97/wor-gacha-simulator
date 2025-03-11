@@ -1,15 +1,9 @@
 #lang racket
-(require threading)
 (require racket/pretty)
 (require racket/class)
-(require "./structs.rkt")
-(require "./utils.rkt")
-(require "./pity-system.rkt")
-(require "./spirits-pool.rkt")
-(require "./limited-spirits-pool.rkt")
-(require "./surprise-spirits-pool.rkt")
-(require "./ancient-pool.rkt")
-(require "./divine-pool.rkt")
+(require "../structs.rkt")
+(require "../pity-system.rkt")
+(require "../spirits-pool.rkt")
 (require "./rarities.rkt")
 
 (define is-soft-pity-on #f)

@@ -1,21 +1,21 @@
 #lang racket
 (require threading)
 (require racket/class)
-(require "./structs.rkt")
-(require "./utils.rkt")
-(require "./pity-system.rkt")
-(require "./spirits-pool.rkt")
-(require "./limited-spirits-pool.rkt")
-(require "./surprise-spirits-pool.rkt")
-(require "./ancient-pool.rkt")
-(require "./divine-pool.rkt")
+(require "../structs.rkt")
+(require "../utils.rkt")
+(require "../pity-system.rkt")
+(require "../spirits-pool.rkt")
+(require "../limited-spirits-pool.rkt")
+(require "../surprise-spirits-pool.rkt")
+(require "../ancient-pool.rkt")
+(require "../divine-pool.rkt")
 (require "./rarities.rkt")
 
-;; 软保底（国际服有，国服没有）
-(define is-soft-pity-on #f)
+;; International server has soft-pity
+(define is-soft-pity-on #t)
 
 (define (main)
-  ;; 英灵系共享保底
+  ;; Spirits shared pity system
   (define spirits-pity-system
     (new pity-system%
          [hard-pity-threshold 199]
@@ -23,7 +23,7 @@
          [soft-pity-boost #e0.05]
          [is-soft-pity-on is-soft-pity-on]))
   
-  ;; 远古系共享保底
+  ;; Ancient shared pity system
   (define ancient-pity-system
     (new pity-system%
          [hard-pity-threshold 199]
@@ -31,7 +31,7 @@
          [soft-pity-boost #e0.08]
          [is-soft-pity-on is-soft-pity-on]))
   
-  ;; 神圣系共享保底
+  ;; Divine shared pity system
   (define divine-pity-system
     (new pity-system%
          [hard-pity-threshold 19]
@@ -39,35 +39,35 @@
          [soft-pity-boost #e0.05]
          [is-soft-pity-on is-soft-pity-on])) 
 
-  ;; 普通英灵召唤
+  ;; Normal Invocation of Spirits
   (define normal-spirits-rarities spirits-rarities)
-  (define normal-spirits-pool-name "普通英灵召唤")
+  (define normal-spirits-pool-name "Invocation of Spirits")
   (define normal-spirits-pool
     (new spirits-pool%
          [name normal-spirits-pool-name]
          [base-rarities normal-spirits-rarities]
          [pity-system spirits-pity-system]))
 
-  ;; 特定英灵召唤
+  ;; Special Invocation of Spirits
   (define special-spirits-up-heroes-5-stars-lord '())
-  (define special-spirits-up-heroes-5-stars '("康斯坦丝" "卡利普索"))
-  (define special-spirits-up-heroes-4-stars '("艾斯米" "塞蕾妮" "奥西伦"))
+  (define special-spirits-up-heroes-5-stars '("Constance" "Calypso"))
+  (define special-spirits-up-heroes-4-stars '("Esme" "Cyrene" "Osiren"))
   (define special-spirits-rarities
     (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) spirits-rarities special-spirits-up-heroes-5-stars-lord)
         (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-spirits-up-heroes-5-stars)
         (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-spirits-up-heroes-4-stars)))
-  (define special-spirits-pool-name "特定英灵召唤")
+  (define special-spirits-pool-name "Special Invocation of Spirits")
   (define special-spirits-pool
     (new spirits-pool%
          [name special-spirits-pool-name]
          [base-rarities special-spirits-rarities]
          [pity-system spirits-pity-system]))
 
-  ;; 限定英灵召唤
-  (define limited-spirits-up-hero-5-stars "貂蝉")
+  ;; Limited Invocation of Spirits
+  (define limited-spirits-up-hero-5-stars "Diaochan")
   (define limited-spirits-rarities
     (add-hero spirits-rarities limited-spirits-up-hero-5-stars 5 #f 15))
-  (define limited-spirits-pool-name "限定英灵召唤")
+  (define limited-spirits-pool-name "Limited Invocation of Spirits")
   (define limited-spirits-pool
     (new limited-spirits-pool%
          [name limited-spirits-pool-name]
@@ -75,75 +75,75 @@
          [pity-system spirits-pity-system]
          [up-hero limited-spirits-up-hero-5-stars]))
 
-  ;; 狂欢英灵召唤
+  ;; Crazy Invocation of Spirits
   (define crazy-spirits-rarities
     (make-spirits-crazy spirits-rarities))
-  (define crazy-spirits-pool-name "狂欢英灵召唤")
+  (define crazy-spirits-pool-name "Crazy Invocation of Spirits")
   (define crazy-spirits-pool
     (new spirits-pool%
          [name crazy-spirits-pool-name]
          [base-rarities crazy-spirits-rarities]
          [pity-system spirits-pity-system]))
   
-  ;; 惊喜英灵召唤
+  ;; Surprise Invocation of Spirits
   (define surprise-spirits-rarities spirits-rarities)
-  (define surprise-spirits-pool-name "惊喜英灵召唤")
+  (define surprise-spirits-pool-name "Surprise Invocation of Spirits")
   (define surprise-spirits-pool
     (new surprise-spirits-pool%
          [name surprise-spirits-pool-name]
          [base-rarities surprise-spirits-rarities]
          [pity-system spirits-pity-system]))
   
-  ;; 普通远古召唤
+  ;; Normal Ancient Summoning
   (define normal-ancient-rarities ancient-rarities)
-  (define normal-ancient-pool-name "普通远古召唤")
+  (define normal-ancient-pool-name "Normal Ancient Summoning")
   (define normal-ancient-pool
     (new ancient-pool%
          [name normal-ancient-pool-name]
          [base-rarities normal-ancient-rarities]
          [pity-system ancient-pity-system]))
 
-  ;; 特定远古召唤
-  (define special-ancient-up-heroes-5-stars-lord '("居鲁士"))
-  (define special-ancient-up-heroes-5-stars '("吕布"))
+  ;; Special Ancient Summoning
+  (define special-ancient-up-heroes-5-stars-lord '("Cyrus"))
+  (define special-ancient-up-heroes-5-stars '("Lu Bu"))
   (define special-ancient-rarities
     (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) ancient-rarities special-ancient-up-heroes-5-stars-lord)
         (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _                special-ancient-up-heroes-5-stars)))
-  (define special-ancient-pool-name "特定远古召唤")
+  (define special-ancient-pool-name "Special Ancient Summoning")
   (define special-ancient-pool
     (new ancient-pool%
          [name special-ancient-pool-name]
          [base-rarities special-ancient-rarities]
          [pity-system ancient-pity-system]))
 
-  ;; 普通神圣召唤
+  ;; Normal Divine Summoning
   (define normal-divine-rarities divine-rarities)
-  (define normal-divine-pool-name "普通神圣召唤")
+  (define normal-divine-pool-name "Normal Divine Summoning")
   (define normal-divine-pool
     (new divine-pool%
          [name normal-divine-pool-name]
          [base-rarities normal-divine-rarities]
          [pity-system divine-pity-system]))
 
-  ;; 特定神圣召唤
+  ;; Special Divine Summoning
   (define special-divine-up-heroes-5-stars-lord '())
-  (define special-divine-up-heroes-5-stars '("康斯坦丝" "卡利普索"))
-  (define special-divine-up-heroes-4-stars '("艾斯米" "塞蕾妮" "奥西伦"))
+  (define special-divine-up-heroes-5-stars '("Constance" "Calypso"))
+  (define special-divine-up-heroes-4-stars '("Esme" "Cyrene" "Osiren"))
   (define special-divine-rarities
     (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) divine-rarities special-divine-up-heroes-5-stars-lord)
         (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-divine-up-heroes-5-stars)
         (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-divine-up-heroes-4-stars)))
-  (define special-divine-pool-name "特定神圣召唤")
+  (define special-divine-pool-name "Special Divine Summoning")
   (define special-divine-pool
     (new divine-pool%
          [name special-divine-pool-name]
          [base-rarities special-divine-rarities]
          [pity-system divine-pity-system]))
 
-  ;; 狂欢神圣召唤
+  ;; Crazy Divine Summoning
   (define crazy-divine-rarities
     (make-divine-crazy divine-rarities))
-  (define crazy-divine-pool-name "狂欢神圣召唤")
+  (define crazy-divine-pool-name "Crazy Divine Summoning")
   (define crazy-divine-pool
     (new divine-pool%
          [name crazy-divine-pool-name]
@@ -151,7 +151,7 @@
          [pity-system divine-pity-system]))
   
   (let loop ()
-    (printf "欢迎来到 WOR 抽卡模拟器！\n")
+    (printf "Welcome to WOR gacha simulator!\n")
     (printf "1. ~a\n" normal-spirits-pool-name)
     (printf "2. ~a -" special-spirits-pool-name)
     (for ([h special-spirits-up-heroes-5-stars-lord])
@@ -182,11 +182,11 @@
       (printf " ~a" h))
     (printf "\n")
     (printf "10. ~a\n" crazy-divine-pool-name)
-    (display "请选择卡池 1-10，输入 'i' 查询卡池状态，'r' 重置卡池, 'q' 退出：\n")
+    (display "Please select a card pool from 1-10, enter 'i' to check the card pool status, 'r' to reset the card pool, or 'q' to quit:\n")
     (flush-output)
     (match (read-line)
       ["q"
-       (printf "再见！\n")]
+       (printf "Goodbye!\n")]
       ["r"
        (define pools (list normal-spirits-pool
                            special-spirits-pool
@@ -200,26 +200,26 @@
                            crazy-divine-pool))
        (for ([pool pools])
          (send pool reset))
-       (printf "卡池已重置：\n")
-       (printf "英灵召唤 共享保底：~a\n" (get-field current-pity spirits-pity-system))
-       (printf "远古召唤 共享保底：~a\n" (get-field current-pity ancient-pity-system))
-       (printf "神圣召唤 共享保底：~a\n" (get-field current-pity divine-pity-system))
+       (printf "The card pool has been reset:\n")
+       (printf "Spirits shared pity: ~a\n" (get-field current-pity spirits-pity-system))
+       (printf "Ancient shared pity: ~a\n" (get-field current-pity ancient-pity-system))
+       (printf "Divine shared pity: ~a\n" (get-field current-pity divine-pity-system))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "限定英灵召唤 - ~a 保底：~a\n" limited-spirits-up-hero limited-spirits-own-pity))
-       (printf "按任意键，返回主菜单：\n")
+         (printf "Limited Invocation of Spirits - ~a, pity:~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+       (printf "Press any key to return to the main menu:\n")
        (flush-output)
        (read-line)
        (loop)]
       ["i"
-       (printf "卡池状态：\n")
-       (printf "英灵召唤 共享保底：~a\n" (get-field current-pity spirits-pity-system))
-       (printf "远古召唤 共享保底：~a\n" (get-field current-pity ancient-pity-system))
-       (printf "神圣召唤 共享保底：~a\n" (get-field current-pity divine-pity-system))
+       (printf "Card pool status:\n")
+       (printf "Spirits shared pity: ~a\n" (get-field current-pity spirits-pity-system))
+       (printf "Ancient shared pity: ~a\n" (get-field current-pity ancient-pity-system))
+       (printf "Divine shared pity: ~a\n" (get-field current-pity divine-pity-system))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "限定英灵召唤 - ~a 保底：~a\n" limited-spirits-up-hero limited-spirits-own-pity))
-       (printf "按任意键，返回主菜单：\n")
+         (printf "Limited Invocation of Spirits - ~a, pity:~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+       (printf "Press any key to return to the main menu:\n")
        (flush-output)
        (read-line)
        (loop)]
@@ -254,7 +254,7 @@
        (pull-interface crazy-divine-pool)
        (loop)]
       [_
-       (printf "无效输入\n")
+       (printf "Invalid input\n")
        (loop)])
     ))
 
@@ -263,23 +263,23 @@
   (define pool-rarities (get-field base-rarities pool))
   (define pool-pity-system (get-field pity-system pool))
   (printf "~a\n" pool-name)
-  (printf "输入 's' 单抽，'m' 十连，'b' 返回主菜单：\n")
+  (printf "Enter 's' for a single pull, 'm' for 10-pulls, or 'b' to return to the main menu:\n")
   (let loop ()
     (flush-output)
     (match (read-line)
       ["b"
-       (printf "返回主菜单\n")]
+       (printf "return to the main menu\n")]
       ["s"
        (for ([card (send pool pull)]
              [i (in-naturals)])
          (let ((hero (card-hero card))
                (rarity (card-rarity card)))
            (if (= i 0)
-               (printf "~a ~a\n" (rarity-name rarity) hero)
-               (printf "+ ~a ~a\n" (rarity-name rarity) hero))))
+               (printf "~a | ~a\n" (rarity-name rarity) hero)
+               (printf "~a | ~a (*)\n" (rarity-name rarity) hero))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "共享保底：~a，限定保底：~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))  
-           (printf "共享保底：~a\n" (get-field current-pity pool-pity-system)))
+           (printf "shared pity:~a，limited pity:~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))  
+           (printf "shared pity:~a\n" (get-field current-pity pool-pity-system)))
        (loop)]
       ["m"
        (for ([i (in-range 10)])
@@ -288,14 +288,14 @@
            (let ((hero (card-hero card))
                  (rarity (card-rarity card)))
              (if (= i 0)
-                 (printf "~a ~a\n" (rarity-name rarity) hero)
-                 (printf "~a ~a (*)\n" (rarity-name rarity) hero)))))
+                 (printf "~a | ~a\n" (rarity-name rarity) hero)
+                 (printf "~a | ~a (*)\n" (rarity-name rarity) hero)))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "共享保底：~a，限定保底：~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))
-           (printf "共享保底：~a\n" (get-field current-pity pool-pity-system)))
+           (printf "shared pity:~a，limited pity:~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))
+           (printf "shared pity:~a\n" (get-field current-pity pool-pity-system)))
        (loop)]
       [_
-       (printf "无效操作\n")
+       (printf "Invalid input\n")
        (loop)])))
 
 (main)

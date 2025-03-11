@@ -1,6 +1,6 @@
 #lang racket
 (require threading)
-(require "./utils.rkt")
+(require "../utils.rkt")
 (require "./rarities.rkt")
 
 ;; 特定英灵召唤

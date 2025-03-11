@@ -1,6 +1,9 @@
 #lang racket
 (require "./statistics.rkt")
 
+;; NOTE: 国服没有软保底，国际服有软保底
+;; 为了对比两者差异，使用和同一个 rarities，但是打开 is-soft-pity-on
+
 ;; International version
 
 (set-field! is-soft-pity-on spirits-pity-system #t)

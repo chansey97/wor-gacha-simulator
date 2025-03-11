@@ -2,14 +2,14 @@
 (require racket/class)
 (require threading)
 (require math/statistics)
-(require "./structs.rkt")
-(require "./utils.rkt")
-(require "./pity-system.rkt")
-(require "./spirits-pool.rkt")
-(require "./limited-spirits-pool.rkt")
-(require "./surprise-spirits-pool.rkt")
-(require "./ancient-pool.rkt")
-(require "./divine-pool.rkt")
+(require "../structs.rkt")
+(require "../utils.rkt")
+(require "../pity-system.rkt")
+(require "../spirits-pool.rkt")
+(require "../limited-spirits-pool.rkt")
+(require "../surprise-spirits-pool.rkt")
+(require "../ancient-pool.rkt")
+(require "../divine-pool.rkt")
 (require "./rarities.rkt")
 (provide (all-defined-out))
 
@@ -193,8 +193,10 @@
       (printf "标准差: ~a\n" stddev)
       (for ([bin bins]
             [percentage percentages])
-        (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n" percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄"))
-      (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n" hard-pity-percentage (add1 hard-pity-threshold) "5星英雄")
+        (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n"
+                percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄"))
+      (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n"
+              hard-pity-percentage (add1 hard-pity-threshold) "5星英雄")
       (printf "\n")
       )))
 
@@ -229,7 +231,8 @@
                         (exact->inexact (* (/ (sample-bin-total bin) (length samples)) 100))))
          (hard-pity-percentage (exact->inexact (* (/ (count (λ (x) (= x (add1 hard-pity-threshold))) samples)
                                                      (length samples)) 100))))
-    (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n" pool-name "5星领主" sample-size)
+    (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n"
+            pool-name "5星领主" sample-size)
     (printf "平均抽数: ~a\n" average)
     (printf "中位数: ~a\n" median)
     (printf "最大值: ~a\n" max)
@@ -237,8 +240,10 @@
     (printf "标准差: ~a\n" stddev)
     (for ([bin bins]
           [percentage percentages])
-      (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n" percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星领主"))
-    (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n" hard-pity-percentage (add1 hard-pity-threshold) "5星领主")
+      (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n"
+              percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星领主"))
+    (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n"
+            hard-pity-percentage (add1 hard-pity-threshold) "5星领主")
     (printf "\n")
     ))
 
@@ -277,7 +282,8 @@
                           (exact->inexact (* (/ (sample-bin-total bin) (length samples)) 100))))
            (hard-pity-percentage (exact->inexact (* (/ (count (λ (x) (= x (add1 hard-pity-threshold))) samples)
                                                        (length samples)) 100))))
-      (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n" pool-name "5星领主" sample-size)
+      (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n"
+              pool-name "5星领主" sample-size)
       (printf "平均抽数: ~a\n" average)
       (printf "中位数: ~a\n" median)
       (printf "最大值: ~a\n" max)
@@ -285,7 +291,8 @@
       (printf "标准差: ~a\n" stddev)
       (for ([bin bins]
             [percentage percentages])
-        (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n" percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星领主"))
+        (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n"
+                percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星领主"))
       (printf "\n")
       )))
 
@@ -296,7 +303,6 @@
   (printf "run-statistics-4:\n")
   (define pool normal-ancient-pool)
   (define pool-name (get-field name pool))
-  (define rarities (get-field base-rarities pool))
   (define pity-system (get-field pity-system pool))
   (define hard-pity-threshold (get-field hard-pity-threshold pity-system))
 
@@ -325,8 +331,10 @@
          (hard-pity-percentage (exact->inexact (* (/ (count (λ (x) (= x (add1 hard-pity-threshold))) samples)
                                                      (length samples)) 100))))
     (if first-only
-        (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n" pool-name "5星英雄" sample-size)
-        (printf "==== 统计 ~a 获取一个~a的期望抽数 （样本量：~a） ====\n" pool-name "5星英雄" sample-size))
+        (printf "==== 统计 ~a 首次获取一个~a的期望抽数 （样本量：~a） ====\n"
+                pool-name "5星英雄" sample-size)
+        (printf "==== 统计 ~a 获取一个~a的期望抽数 （样本量：~a） ====\n"
+                pool-name "5星英雄" sample-size))
     (printf "平均抽数: ~a\n" average)
     (printf "中位数: ~a\n" median)
     (printf "最大值: ~a\n" max)
@@ -335,11 +343,15 @@
     (for ([bin bins]
           [percentage percentages])
       (if first-only
-          (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n" percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄")
-          (printf "~a% 的玩家在 [~a, ~a] 抽内获取一个~a\n" percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄")))
+          (printf "~a% 的玩家在 [~a, ~a] 抽内首次获取一个~a\n"
+                  percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄")
+          (printf "~a% 的玩家在 [~a, ~a] 抽内获取一个~a\n"
+                  percentage (add1 (sample-bin-min bin)) (sample-bin-max bin) "5星英雄")))
     (if first-only
-        (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n" hard-pity-percentage (add1 hard-pity-threshold) "5星英雄")
-        (printf "~a% 的玩家通过硬保底 ~a 抽获取一个~a\n" hard-pity-percentage (add1 hard-pity-threshold) "5星英雄"))
+        (printf "~a% 的玩家通过硬保底 ~a 抽首次获取一个~a\n"
+                hard-pity-percentage (add1 hard-pity-threshold) "5星英雄")
+        (printf "~a% 的玩家通过硬保底 ~a 抽获取一个~a\n"
+                hard-pity-percentage (add1 hard-pity-threshold) "5星英雄"))
     (printf "\n")
     ))
 
@@ -368,7 +380,8 @@
          (individual-pulls-per-5-stars-max (exact->inexact (apply max individual-pulls-per-5-stars-samples)))
          (individual-pulls-per-5-stars-min (exact->inexact (apply min individual-pulls-per-5-stars-samples)))
          (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples))))
-    (printf "==== 统计 ~a 当获取惊喜奖励时，每~a抽数 （样本量：~a） ====\n" pool-name "5星英雄" sample-size)
+    (printf "==== 统计 ~a 当获取惊喜奖励时，每~a抽数 （样本量：~a） ====\n"
+            pool-name "5星英雄" sample-size)
     (printf "平均抽数（宏观指标）: ~a\n" global-pulls-per-5-stars)
     (printf "平均抽数: ~a\n" individual-pulls-per-5-stars-average)
     (printf "中位数: ~a\n" individual-pulls-per-5-stars-median)
@@ -409,7 +422,8 @@
          (individual-pulls-per-5-stars-max (exact->inexact (apply max individual-pulls-per-5-stars-samples)))
          (individual-pulls-per-5-stars-min (exact->inexact (apply min individual-pulls-per-5-stars-samples)))
          (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples))))
-    (printf "==== 统计 ~a 当抽出限定时，每~a抽数 （样本量：~a） ====\n" pool-name "5星英雄" sample-size)
+    (printf "==== 统计 ~a 当抽出限定时，每~a抽数 （样本量：~a） ====\n"
+            pool-name "5星英雄" sample-size)
     (printf "平均抽数（宏观指标）: ~a\n" global-pulls-per-5-stars)
     (printf "平均抽数: ~a\n" individual-pulls-per-5-stars-average)
     (printf "中位数: ~a\n" individual-pulls-per-5-stars-median)
@@ -501,17 +515,11 @@
          ;;        #f)))
          )
     (printf "==== 统计 ~a + ~a 采用卡双金策略时，每~a抽数 （样本量：~a） ====\n"
-            limited-pool-name
-            adjoint-pool-name
-            "5星英雄"
-            sample-size)
+            limited-pool-name adjoint-pool-name "5星英雄" sample-size)
     (printf "-- 先在 ~a 里抽 （初始共享保底：~a）\n"
-            limited-pool-name
-            init-shared-pity)
+            limited-pool-name init-shared-pity)
     (printf "-- 如果 ~a 抽没有获得5星英雄，换 ~a 直到抽出5星英雄，再返回 ~a 继续抽，直到抽出限定5星英雄\n"
-            start-in-limited-pulls
-            adjoint-pool-name
-            limited-pool-name)
+            start-in-limited-pulls adjoint-pool-name limited-pool-name)
     (printf "-- 如果 ~a 抽获得了5星英雄，如果是限定5星英雄，则结束，否则继续抽，直到抽出限定5星英雄\n"
             start-in-limited-pulls)
     (printf "平均抽数（宏观指标）: ~a\n" global-pulls-per-5-stars)
