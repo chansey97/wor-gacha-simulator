@@ -126,7 +126,8 @@
 ;; There is no many differences between no Crazy and Crazy 
 ;; 133 pulls: average 94.28913023809524 vs 92.38139047619048
 ;; 180 pulls: average 88.65885214285714 vs 88.45351166666667
-
+;;
+;; Therefore, start-in-limited-pulls = 133 is the best in dual-lego-optimization-strategy.
 
 
 ;; (printf "#### adjoint pool is normal, start-in-limited-pulls=[10, 190] ####\n\n")
