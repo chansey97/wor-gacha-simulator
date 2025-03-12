@@ -13,9 +13,6 @@
 
 ;; International version
 
-(define limited-pool-own-pity-threshold 199)
-;; (define limited-pool-own-pity-threshold 249) ; old version
-
 ;; Spirits shared pity system
 (define spirits-pity-system
   (new pity-system%
@@ -74,8 +71,7 @@
        [name limited-spirits-pool-name]
        [base-rarities limited-spirits-rarities]
        [pity-system spirits-pity-system]
-       [up-hero limited-spirits-up-hero-5-stars]
-       [own-pity-threshold limited-pool-own-pity-threshold]))
+       [up-hero limited-spirits-up-hero-5-stars]))
 
 ;; Crazy Invocation of Spirits
 (define crazy-spirits-rarities

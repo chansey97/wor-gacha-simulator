@@ -33,7 +33,7 @@
          (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples))))
     (printf "==== Count ~a, the number of pulls per ~a when a surprise reward is obtained (sample size: ~a). ====\n"
             pool-name "5-Stars Hero" sample-size)
-    (printf "average(Macro indicator): ~a\n" global-pulls-per-5-stars)
+    (printf "average(macro indicator): ~a\n" global-pulls-per-5-stars)
     (printf "average: ~a\n" individual-pulls-per-5-stars-average)
     (printf "median: ~a\n" individual-pulls-per-5-stars-median)
     (printf "max: ~a\n" individual-pulls-per-5-stars-max)
@@ -45,7 +45,7 @@
 
 ;; run-statistics-5:
 ;; ==== Count Surprise Invocation of Spirits, the number of pulls per 5-Stars Hero when a surprise reward is obtained (sample size: 10000). ====
-;; average(Macro indicator): 60.4087
+;; average(macro indicator): 60.4087
 ;; average: 60.4087
 ;; median: 69.5
 ;; max: 97.5

@@ -3,7 +3,7 @@
 (require "../structs.rkt")
 (require "./statistics.rkt")
 
-;; International version
+;; International version (old version)
 
 ;; run-statistics-6: Count the number of pulls per 5-Stars Hero when pulling a limited character in
 ;; Limited Invocation of Spirits.
@@ -51,13 +51,18 @@
     (printf "\n")
     ))
 
-(run-statistics-6 10000)
+;; In old international version, Limited Pool's own-pity-threshold is 249 instead of 199
+(let ((backup-own-pity-threshold (get-field own-pity-threshold limited-spirits-pool)))
+  (set-field! own-pity-threshold limited-spirits-pool 249)
+  (run-statistics-6 10000)
+  (set-field! own-pity-threshold limited-spirits-pool backup-own-pity-threshold))
+
 
 ;; run-statistics-6:
 ;; ==== Count Limited Invocation of Spirits the number of pulls per 5-Stars Hero when a Limited 5-Stars Hero is obtained (sample-size: 10000). ====
-;; average(macro indicator): 86.82110663598006
-;; average: 93.98688666666666
-;; median: 100.0
-;; max: 194.0
+;; average(macro indicator): 94.93040945840215
+;; average: 102.73705261904762
+;; median: 107.0
+;; max: 193.0
 ;; min: 1.0
-;; stddev: 35.88219003421614
+;; stddev: 37.99421506282296
