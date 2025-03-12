@@ -201,24 +201,44 @@
        (for ([pool pools])
          (send pool reset))
        (printf "The card pool has been reset:\n")
-       (printf "Spirits shared pity: ~a\n" (get-field current-pity spirits-pity-system))
-       (printf "Ancient shared pity: ~a\n" (get-field current-pity ancient-pity-system))
-       (printf "Divine shared pity: ~a\n" (get-field current-pity divine-pity-system))
+       (printf "Spirits shared pity: ~a/~a\n"
+               (get-field current-pity spirits-pity-system)
+               (add1 (get-field hard-pity-threshold spirits-pity-system)))
+       (printf "Ancient shared pity: ~a/~a\n"
+               (get-field current-pity ancient-pity-system)
+               (add1 (get-field hard-pity-threshold ancient-pity-system)))
+       (printf "Divine shared pity: ~a/~a\n"
+               (get-field current-pity divine-pity-system)
+               (add1 (get-field hard-pity-threshold divine-pity-system)))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
+             (limited-spirits-own-pity-threshold+1 (add1 (get-field own-pity-threshold limited-spirits-pool)))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "Limited Invocation of Spirits - ~a, pity:~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+         (printf "Limited Invocation of Spirits - ~a, pity:~a/~a\n"
+                 limited-spirits-up-hero
+                 limited-spirits-own-pity
+                 limited-spirits-own-pity-threshold+1))
        (printf "Press any key to return to the main menu:\n")
        (flush-output)
        (read-line)
        (loop)]
       ["i"
        (printf "Card pool status:\n")
-       (printf "Spirits shared pity: ~a\n" (get-field current-pity spirits-pity-system))
-       (printf "Ancient shared pity: ~a\n" (get-field current-pity ancient-pity-system))
-       (printf "Divine shared pity: ~a\n" (get-field current-pity divine-pity-system))
+       (printf "Spirits shared pity: ~a/~a\n"
+               (get-field current-pity spirits-pity-system)
+               (add1 (get-field hard-pity-threshold spirits-pity-system)))
+       (printf "Ancient shared pity: ~a/~a\n"
+               (get-field current-pity ancient-pity-system)
+               (add1 (get-field hard-pity-threshold ancient-pity-system)))
+       (printf "Divine shared pity: ~a/~a\n"
+               (get-field current-pity divine-pity-system)
+               (add1 (get-field hard-pity-threshold divine-pity-system)))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
+             (limited-spirits-own-pity-threshold+1 (add1 (get-field own-pity-threshold limited-spirits-pool)))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "Limited Invocation of Spirits - ~a, pity:~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+         (printf "Limited Invocation of Spirits - ~a, pity:~a/~a\n"
+                 limited-spirits-up-hero
+                 limited-spirits-own-pity
+                 limited-spirits-own-pity-threshold+1))
        (printf "Press any key to return to the main menu:\n")
        (flush-output)
        (read-line)
@@ -260,7 +280,6 @@
 
 (define (pull-interface pool)
   (define pool-name (get-field name pool))
-  (define pool-rarities (get-field base-rarities pool))
   (define pool-pity-system (get-field pity-system pool))
   (printf "~a\n" pool-name)
   (printf "Enter 's' for a single pull, 'm' for 10-pulls, or 'b' to return to the main menu:\n")
@@ -278,8 +297,14 @@
                (printf "~a | ~a\n" (rarity-name rarity) hero)
                (printf "~a | ~a (*)\n" (rarity-name rarity) hero))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "shared pity:~a，limited pity:~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))  
-           (printf "shared pity:~a\n" (get-field current-pity pool-pity-system)))
+           (printf "shared pity:~a/~a, limited pity:~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))
+                   (get-field own-pity pool)
+                   (add1 (get-field own-pity-threshold pool)))  
+           (printf "shared pity:~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))))
        (loop)]
       ["m"
        (for ([i (in-range 10)])
@@ -291,8 +316,14 @@
                  (printf "~a | ~a\n" (rarity-name rarity) hero)
                  (printf "~a | ~a (*)\n" (rarity-name rarity) hero)))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "shared pity:~a，limited pity:~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))
-           (printf "shared pity:~a\n" (get-field current-pity pool-pity-system)))
+           (printf "shared pity:~a/~a, limited pity:~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))
+                   (get-field own-pity pool)
+                   (add1 (get-field own-pity-threshold pool)))
+           (printf "shared pity:~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))))
        (loop)]
       [_
        (printf "Invalid input\n")

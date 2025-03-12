@@ -201,24 +201,44 @@
        (for ([pool pools])
          (send pool reset))
        (printf "卡池已重置：\n")
-       (printf "英灵召唤 共享保底：~a\n" (get-field current-pity spirits-pity-system))
-       (printf "远古召唤 共享保底：~a\n" (get-field current-pity ancient-pity-system))
-       (printf "神圣召唤 共享保底：~a\n" (get-field current-pity divine-pity-system))
+       (printf "英灵召唤 共享保底：~a/~a\n"
+               (get-field current-pity spirits-pity-system)
+               (add1 (get-field hard-pity-threshold spirits-pity-system)))
+       (printf "远古召唤 共享保底：~a/~a\n"
+               (get-field current-pity ancient-pity-system)
+               (add1 (get-field hard-pity-threshold ancient-pity-system)))
+       (printf "神圣召唤 共享保底：~a/~a\n"
+               (get-field current-pity divine-pity-system)
+               (add1 (get-field hard-pity-threshold divine-pity-system)))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
+             (limited-spirits-own-pity-threshold+1 (add1 (get-field own-pity-threshold limited-spirits-pool)))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "限定英灵召唤 - ~a 保底：~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+         (printf "限定英灵召唤 - ~a，保底：~a/~a\n"
+                 limited-spirits-up-hero
+                 limited-spirits-own-pity
+                 limited-spirits-own-pity-threshold+1))
        (printf "按任意键，返回主菜单：\n")
        (flush-output)
        (read-line)
        (loop)]
       ["i"
        (printf "卡池状态：\n")
-       (printf "英灵召唤 共享保底：~a\n" (get-field current-pity spirits-pity-system))
-       (printf "远古召唤 共享保底：~a\n" (get-field current-pity ancient-pity-system))
-       (printf "神圣召唤 共享保底：~a\n" (get-field current-pity divine-pity-system))
+       (printf "英灵召唤 共享保底：~a/~a\n"
+               (get-field current-pity spirits-pity-system)
+               (add1 (get-field hard-pity-threshold spirits-pity-system)))
+       (printf "远古召唤 共享保底：~a/~a\n"
+               (get-field current-pity ancient-pity-system)
+               (add1 (get-field hard-pity-threshold ancient-pity-system)))
+       (printf "神圣召唤 共享保底：~a/~a\n"
+               (get-field current-pity divine-pity-system)
+               (add1 (get-field hard-pity-threshold divine-pity-system)))
        (let ((limited-spirits-own-pity (get-field own-pity limited-spirits-pool))
+             (limited-spirits-own-pity-threshold+1 (add1 (get-field own-pity-threshold limited-spirits-pool)))
              (limited-spirits-up-hero (get-field up-hero limited-spirits-pool)))
-         (printf "限定英灵召唤 - ~a 保底：~a\n" limited-spirits-up-hero limited-spirits-own-pity))
+         (printf "限定英灵召唤 - ~a，保底：~a/~a\n"
+                 limited-spirits-up-hero
+                 limited-spirits-own-pity
+                 limited-spirits-own-pity-threshold+1))
        (printf "按任意键，返回主菜单：\n")
        (flush-output)
        (read-line)
@@ -275,11 +295,17 @@
          (let ((hero (card-hero card))
                (rarity (card-rarity card)))
            (if (= i 0)
-               (printf "~a ~a\n" (rarity-name rarity) hero)
-               (printf "+ ~a ~a\n" (rarity-name rarity) hero))))
+               (printf "~a | ~a\n" (rarity-name rarity) hero)
+               (printf "~a | ~a (*)\n" (rarity-name rarity) hero))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "共享保底：~a，限定保底：~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))  
-           (printf "共享保底：~a\n" (get-field current-pity pool-pity-system)))
+           (printf "共享保底：~a/~a，限定保底：~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))
+                   (get-field own-pity pool)
+                   (add1 (get-field own-pity-threshold pool)))  
+           (printf "共享保底：~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))))
        (loop)]
       ["m"
        (for ([i (in-range 10)])
@@ -288,11 +314,17 @@
            (let ((hero (card-hero card))
                  (rarity (card-rarity card)))
              (if (= i 0)
-                 (printf "~a ~a\n" (rarity-name rarity) hero)
-                 (printf "~a ~a (*)\n" (rarity-name rarity) hero)))))
+                 (printf "~a | ~a\n" (rarity-name rarity) hero)
+                 (printf "~a | ~a (*)\n" (rarity-name rarity) hero)))))
        (if (is-a? pool limited-spirits-pool%)
-           (printf "共享保底：~a，限定保底：~a\n" (get-field current-pity pool-pity-system) (get-field own-pity pool))
-           (printf "共享保底：~a\n" (get-field current-pity pool-pity-system)))
+           (printf "共享保底：~a/~a，限定保底：~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))
+                   (get-field own-pity pool)
+                   (add1 (get-field own-pity-threshold pool)))
+           (printf "共享保底：~a/~a\n"
+                   (get-field current-pity pool-pity-system)
+                   (add1 (get-field hard-pity-threshold pool-pity-system))))
        (loop)]
       [_
        (printf "无效操作\n")
