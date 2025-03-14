@@ -111,10 +111,10 @@
 ;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 198
 ;;
 ;; P.S. 133 can also be computed by math:
-;; Assuming x is the start-in-limited-pulls, solve the maximum of f(x) = (x + (200 - x) + (200 -x)) / 2,
+;; Assuming x is the start-in-limited-pulls, solve the minimum of f(x) = (x + (200 - x) + (200 -x)) / 2,
 ;; where x > 100 and (x + (200 - x) + (200 -x)) / 2 >= x
 ;; Thus 100 < x <= 400/3 = 133.3333
-;; Since f(x) is monotonic decreasing, so the maximum of f(x) = f(133.3333) = 133.33333
+;; Since f(x) is monotonic decreasing, so the minimum of f(x) = f(133.3333) = 133.33333
 ;;
 ;; When adjoint pool is Crazy Invocation of Spirits:
 ;;
@@ -123,7 +123,7 @@
 ;;
 ;; There is no many differences between no Crazy and Crazy 
 ;; 133 pulls: average 97.11788095238096 vs 95.09224428571429
-;; 180 pulls: average 90.290345 vs 89.75100714285715
+;; 198 pulls: average 90.08062547619048 vs 90.37361166666666
 ;;
 ;; Therefore, start-in-limited-pulls = 133 is the best in dual-lego-optimization-strategy.
 
