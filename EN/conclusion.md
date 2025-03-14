@@ -1,14 +1,14 @@
 ## Count the number of pulls per 5-stars hero (sample size: 10000)
 
-|              | average | median | max | stddev | hard pity %% |
-| ------------ | ------ | ------ | ------ | ------ | ------- |
-| Invocation of Spirits | 121.0 | 139.0 | 195.0 | 65.9 | 0%   |
-| Crazy Invocation of Spirits | 85.5    | 70.0   | 195.0 | 62.8 | 0% |
-| Limited Invocation of Spirits | 86.8    | 100.0  | 194.0 | 35.8   | -       |
-| Surprise Invocation of Spirits | 60.4 | 69.5   | 97.5 | 33.1   | -       |
-| Ancient Summoning | 49.2    | 35.0   | 194.0 | 44.7   | -       |
-| Divine Summoning | 10.8    | 12.0   | 20.0 | 6.0 | 5.65% |
-| Crazy Divine Summoning | 7.3 | 6.0 | 20.0  | 5.3 | 1.44% |
+|                                | average | median | max    | stddev | hard pity % |
+| -----------------------------  | ------- | ------ | ------ | ------ | ------- |
+| Invocation of Spirits          | 121.0   | 139.0  | 195.0  | 65.9   | 0%      |
+| Crazy Invocation of Spirits    | 85.5    | 70.0   | 195.0  | 62.8   | 0%      |
+| Limited Invocation of Spirits  | 86.8    | 100.0  | 194.0  | 35.8   | -       |
+| Surprise Invocation of Spirits | 60.4    | 69.5   | 97.5   | 33.1   | -       |
+| Ancient Summoning              | 49.2    | 35.0   | 194.0  | 44.7   | -       |
+| Divine Summoning               | 10.8    | 12.0   | 20.0   | 6.0    | 5.65%   |
+| Crazy Divine Summoning         | 7.3     | 6.0    | 20.0   | 5.3    | 1.44%   |
 
 **Surprise > Crazy > Limited > Regular Spirits**
 
@@ -22,13 +22,13 @@ Even with the independent pity system of Limited Invocation of Spirits, it still
 
 ## Count the number of pulls per 5-stars lord hero (sample size: 10000)
 
-|              | average | median | max  | stddev | hard pity %% |
-| ------------ | ------ | ------ | ------- | ------ | ----------- |
-| Invocation of Spirits | 1510.3 | 1062.0 | 13900.0 | 1450.0 | -           |
-| Crazy Invocation of Spirits | 1034.5 | 733.0  | 11208.0 | 1007.3 | -           |
-| Ancient Summoning | 97.8617 | 87.0   | 196.0   | 66.6   | 0%    |
-| Divine Summoning | 160.8 | 114.0  | 1533.0 | 154.8  | -           |
-| Crazy Divine Summoning | 109.7 | 78.0   | 919.0 | 106.4  | -           |
+|                               | average | median | max     | stddev | hard pity % |
+| ----------------------------- | ------- | ------ | ------- | ------ | ----------- |
+| Invocation of Spirits         | 1510.3  | 1062.0 | 13900.0 | 1450.0 | -           |
+| Crazy Invocation of Spirits   | 1034.5  | 733.0  | 11208.0 | 1007.3 | -           |
+| Ancient Summoning             | 97.8617 | 87.0   | 196.0   | 66.6   | 0%          |
+| Divine Summoning              | 160.8   | 114.0  | 1533.0  | 154.8  | -           |
+| Crazy Divine Summoning        | 109.7   | 78.0   | 919.0   | 106.4  | -           |
 
 ## **Optimal Dual-Pool Strategy**
 
@@ -77,15 +77,15 @@ Minimizing  $f(x) = \frac{X + (200 - X) + (200 - X)}{2}$:
 
 **A:** If the Limited Pool features good heroes, prioritize Special Invocation as the secondary pool. The Crazy Pool's doubled probability boost provides diminishing returns under Dual-Pool Strategy.
 
-| Limited Invocation of Spirits + Special Invocation of Spirits | average | max |
-| --------------------------- | ------ | ------ |
-| X = 133                     | 94.2 | 133.3  |
-| X = 180                    | 88.6 | 180.0 |
+| Limited Invocation of Spirits + Special Invocation of Spirits | average | max    |
+| ------------------------------------------------------------- | ------- | ------ |
+| X = 133                                                       | 94.2    | 133.3  |
+| X = 180                                                       | 88.6    | 180.0  |
 
-| Limited Invocation of Spirits + Crazy Invocation of Spirits | average | max |
-| --------------------------- | ------ | ------ |
-| X = 133                     | 92.3 | 133.3  |
-| X = 180                    | 88.5 | 197.0  |
+| Limited Invocation of Spirits + Crazy Invocation of Spirits | average | max    |
+| ----------------------------------------------------------- | ------- | ------ |
+| X = 133                                                     | 92.3    | 133.3  |
+| X = 180                                                     | 88.5    | 197.0  |
 
 **Q:** What if a shared pity exists before executing the Dual-Pool Strategy?
 
