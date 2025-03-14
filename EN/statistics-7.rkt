@@ -5,7 +5,7 @@
 
 ;; International version
 
-;; run-statistics-7: Count the number of pulls per 5-Stars Hero when using the dual-lego strategy in
+;; run-statistics-7: Count the number of pulls per 5-Stars Hero when using the dual-pool strategy in
 ;; Limited Invocation of Spirits and Normal Invocation of Spirits
 (define (run-statistics-7 sample-size init-shared-pity start-in-limited-pulls [adjoint-is-crazy #f])
   (printf "run-statistics-7:\n")
@@ -16,7 +16,7 @@
   (define adjoint-pool-name (get-field name adjoint-pool))
   (define shared-pity-system (get-field pity-system limited-pool))
 
-  (define (dual-lego-optimization-strategy)
+  (define (dual-pool-optimization-strategy)
     (send limited-pool reset)
     (send adjoint-pool reset)
     (set-field! current-pity shared-pity-system init-shared-pity)
@@ -61,7 +61,7 @@
                      (append status-chains (list (list 'continue-in-limited (add1 pull-count)))))
                (loop (add1 pull-count) 5-stars-count status status-chains)))]
         )))
-  (let* ((samples (for/list ([i (in-range sample-size)]) (dual-lego-optimization-strategy)))
+  (let* ((samples (for/list ([i (in-range sample-size)]) (dual-pool-optimization-strategy)))
          (lst-of-pull-count (map first samples))
          (lst-of-5-stars-count (map second samples))
          (lst-of-status-chains (map third samples))
@@ -86,7 +86,7 @@
          ;;        #f)))
          )
 
-    (printf "==== Count ~a + ~a the number of pulls per ~a when using the dual-lego strategy (sample-size: ~a) ====\n"
+    (printf "==== Count ~a + ~a the number of pulls per ~a when using the dual-pool strategy (sample-size: ~a) ====\n"
             limited-pool-name adjoint-pool-name "5-Stars Hero" sample-size)
     (printf "-- Firstly, pulling in ~a (init-shared-pity:~a)\n"
             limited-pool-name init-shared-pity)
@@ -127,7 +127,7 @@
 ;; 133 pulls: average 94.28913023809524 vs 92.38139047619048
 ;; 180 pulls: average 88.65885214285714 vs 88.45351166666667
 ;;
-;; Therefore, start-in-limited-pulls = 133 is the best in dual-lego-optimization-strategy.
+;; Therefore, start-in-limited-pulls = 133 is the best in dual-pool-optimization-strategy.
 
 
 ;; (printf "#### adjoint pool is normal, start-in-limited-pulls=[10, 190] ####\n\n")
@@ -137,7 +137,7 @@
 ;; #### adjoint pool is normal, start-in-limited-pulls=[10, 190] ####\n
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 10 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 10 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -149,7 +149,7 @@
 ;; stddev: 34.02685543063373
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 20 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 20 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -161,7 +161,7 @@
 ;; stddev: 44.36066102256475
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 30 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 30 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -173,7 +173,7 @@
 ;; stddev: 43.37476107308091
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 40 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 40 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -185,7 +185,7 @@
 ;; stddev: 42.362445842057376
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 50 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 50 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -197,7 +197,7 @@
 ;; stddev: 41.79219623418624
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 60 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 60 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -209,7 +209,7 @@
 ;; stddev: 40.62704864970487
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 70 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 70 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -221,7 +221,7 @@
 ;; stddev: 39.27123933841328
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 80 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 80 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -233,7 +233,7 @@
 ;; stddev: 37.839990029060246
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 90 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 90 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -245,7 +245,7 @@
 ;; stddev: 36.33543512747616
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 100 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 100 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -257,7 +257,7 @@
 ;; stddev: 34.72932609262863
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 110 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 110 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -269,7 +269,7 @@
 ;; stddev: 33.24076872855126
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 120 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 120 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -281,7 +281,7 @@
 ;; stddev: 31.49210727955329
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 130 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 130 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -293,7 +293,7 @@
 ;; stddev: 29.982177849484856
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 140 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 140 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -305,7 +305,7 @@
 ;; stddev: 28.693479220843454
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 150 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 150 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -317,7 +317,7 @@
 ;; stddev: 27.46185050969066
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 160 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 160 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -329,7 +329,7 @@
 ;; stddev: 26.336128653850263
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 170 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 170 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -341,7 +341,7 @@
 ;; stddev: 25.335639812828596
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 180 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 180 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -353,7 +353,7 @@
 ;; stddev: 25.288511641447922
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 190 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 190 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -370,7 +370,7 @@
 ;;   (run-statistics-7 10000 0 i))
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 130 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 130 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -382,7 +382,7 @@
 ;; stddev: 30.206993002583886
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 131 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 131 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -394,7 +394,7 @@
 ;; stddev: 30.07511612466866
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 132 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 132 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -406,7 +406,7 @@
 ;; stddev: 29.691105747449598
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 133 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 133 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -418,7 +418,7 @@
 ;; stddev: 29.53046365808222
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 134 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 134 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -430,7 +430,7 @@
 ;; stddev: 29.46743987805535
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 135 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 135 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -442,7 +442,7 @@
 ;; stddev: 29.398538321255547
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 136 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 136 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -454,7 +454,7 @@
 ;; stddev: 29.219936364561903
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 137 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 137 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -466,7 +466,7 @@
 ;; stddev: 28.973507814293313
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 138 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 138 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -478,7 +478,7 @@
 ;; stddev: 29.228099200080848
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 139 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 139 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -496,7 +496,7 @@
 ;; #### adjoint pool is normal, start-in-limited-pulls=[160, 199] ####
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 160 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 160 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -508,7 +508,7 @@
 ;; stddev: 26.641943115857956
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 161 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 161 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -520,7 +520,7 @@
 ;; stddev: 26.624041081948413
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 162 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 162 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -532,7 +532,7 @@
 ;; stddev: 26.109448859732698
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 163 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 163 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -544,7 +544,7 @@
 ;; stddev: 26.06142077877986
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 164 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 164 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -556,7 +556,7 @@
 ;; stddev: 26.537091600592216
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 165 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 165 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -568,7 +568,7 @@
 ;; stddev: 25.91403145290972
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 166 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 166 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -580,7 +580,7 @@
 ;; stddev: 25.676660975415864
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 167 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 167 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -592,7 +592,7 @@
 ;; stddev: 25.967983054193525
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 168 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 168 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -604,7 +604,7 @@
 ;; stddev: 25.817889861800413
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 169 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 169 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -616,7 +616,7 @@
 ;; stddev: 25.77477646958108
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 170 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 170 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -628,7 +628,7 @@
 ;; stddev: 25.8266487972499
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 171 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 171 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -640,7 +640,7 @@
 ;; stddev: 25.543215505122724
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 172 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 172 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -652,7 +652,7 @@
 ;; stddev: 25.39891110298008
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 173 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 173 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -664,7 +664,7 @@
 ;; stddev: 25.995093409871235
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 174 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 174 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -676,7 +676,7 @@
 ;; stddev: 25.469794229503975
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 175 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 175 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -688,7 +688,7 @@
 ;; stddev: 25.438027039966006
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 176 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 176 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -700,7 +700,7 @@
 ;; stddev: 25.688523816766075
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 177 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 177 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -712,7 +712,7 @@
 ;; stddev: 25.252720206883563
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 178 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 178 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -724,7 +724,7 @@
 ;; stddev: 25.03321392756698
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 179 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 179 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -736,7 +736,7 @@
 ;; stddev: 24.825670187765475
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 180 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 180 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -748,7 +748,7 @@
 ;; stddev: 25.394426852551963
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 181 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 181 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -760,7 +760,7 @@
 ;; stddev: 26.09913205589625
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 182 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 182 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -772,7 +772,7 @@
 ;; stddev: 27.177695352148966
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 183 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 183 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -784,7 +784,7 @@
 ;; stddev: 28.558448549447935
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 184 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 184 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -796,7 +796,7 @@
 ;; stddev: 29.175868806216428
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 185 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 185 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -808,7 +808,7 @@
 ;; stddev: 30.988016820420874
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 186 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 186 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -820,7 +820,7 @@
 ;; stddev: 32.6682699649372
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 187 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 187 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -832,7 +832,7 @@
 ;; stddev: 33.38612879822667
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 188 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 188 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -844,7 +844,7 @@
 ;; stddev: 34.32955175806603
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 189 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 189 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -856,7 +856,7 @@
 ;; stddev: 34.687044982067974
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 190 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 190 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -868,7 +868,7 @@
 ;; stddev: 34.63900169948464
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 191 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 191 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -880,7 +880,7 @@
 ;; stddev: 35.664624890343134
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 192 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 192 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -892,7 +892,7 @@
 ;; stddev: 35.63795155853139
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 193 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 193 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -904,7 +904,7 @@
 ;; stddev: 35.32604545835604
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 194 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 194 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -916,7 +916,7 @@
 ;; stddev: 34.737174868563386
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 195 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 195 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -928,7 +928,7 @@
 ;; stddev: 35.060795335959746
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 196 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 196 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -940,7 +940,7 @@
 ;; stddev: 35.17453925852033
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 197 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 197 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -952,7 +952,7 @@
 ;; stddev: 35.55341659474235
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 198 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 198 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -964,7 +964,7 @@
 ;; stddev: 35.14328746107281
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 199 pulls do not yield a 5-Stars Hero, switch to Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 199 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -984,7 +984,7 @@
 ;; #### adjoint pool is crazy, start-in-limited-pulls=[10, 200] ####
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 10 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 10 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -996,7 +996,7 @@
 ;; stddev: 31.234011558042543
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 20 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 20 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1008,7 +1008,7 @@
 ;; stddev: 40.651109391149376
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 30 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 30 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1020,7 +1020,7 @@
 ;; stddev: 40.24656997947783
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 40 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 40 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1032,7 +1032,7 @@
 ;; stddev: 39.821970893855436
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 50 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 50 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1044,7 +1044,7 @@
 ;; stddev: 38.849919504178686
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 60 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 60 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1056,7 +1056,7 @@
 ;; stddev: 37.68182275769923
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 70 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 70 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1068,7 +1068,7 @@
 ;; stddev: 36.94174243760153
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 80 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 80 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1080,7 +1080,7 @@
 ;; stddev: 35.39353127902482
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 90 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 90 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1092,7 +1092,7 @@
 ;; stddev: 34.29600368589534
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 100 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 100 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1104,7 +1104,7 @@
 ;; stddev: 33.11700983346881
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 110 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 110 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1116,7 +1116,7 @@
 ;; stddev: 31.606541312030778
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 120 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 120 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1128,7 +1128,7 @@
 ;; stddev: 30.894520835745134
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 130 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 130 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1140,7 +1140,7 @@
 ;; stddev: 29.145592760739692
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 140 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 140 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1152,7 +1152,7 @@
 ;; stddev: 28.58305103679709
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 150 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 150 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1164,7 +1164,7 @@
 ;; stddev: 27.486116232711993
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 160 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 160 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1176,7 +1176,7 @@
 ;; stddev: 26.348128539146956
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 170 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 170 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1188,7 +1188,7 @@
 ;; stddev: 26.120004993036957
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 180 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 180 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1200,7 +1200,7 @@
 ;; stddev: 25.477265238804094
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 190 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 190 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1217,7 +1217,7 @@
 
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 130 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 130 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1229,7 +1229,7 @@
 ;; stddev: 29.62981968732614
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 131 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 131 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1241,7 +1241,7 @@
 ;; stddev: 29.590779818461616
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 132 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 132 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1253,7 +1253,7 @@
 ;; stddev: 29.264104823387385
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 133 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 133 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1265,7 +1265,7 @@
 ;; stddev: 29.45051298090892
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 134 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 134 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1277,7 +1277,7 @@
 ;; stddev: 29.092534134460163
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 135 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 135 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1289,7 +1289,7 @@
 ;; stddev: 28.713000585520838
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 136 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 136 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1301,7 +1301,7 @@
 ;; stddev: 28.657572270925716
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 137 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 137 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1313,7 +1313,7 @@
 ;; stddev: 28.578500048109856
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 138 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 138 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1325,7 +1325,7 @@
 ;; stddev: 28.49846655872371
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 139 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 139 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1344,7 +1344,7 @@
 ;; #### adjoint pool is crazy, start-in-limited-pulls=[160, 199] ####
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 160 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 160 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1356,7 +1356,7 @@
 ;; stddev: 26.372249752129264
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 161 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 161 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1368,7 +1368,7 @@
 ;; stddev: 26.31093681934255
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 162 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 162 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1380,7 +1380,7 @@
 ;; stddev: 26.175590287168948
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 163 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 163 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1392,7 +1392,7 @@
 ;; stddev: 25.84225467688735
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 164 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 164 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1404,7 +1404,7 @@
 ;; stddev: 26.069319038452505
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 165 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 165 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1416,7 +1416,7 @@
 ;; stddev: 25.94117722531854
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 166 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 166 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1428,7 +1428,7 @@
 ;; stddev: 25.877904849927702
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 167 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 167 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1440,7 +1440,7 @@
 ;; stddev: 25.83133382301565
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 168 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 168 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1452,7 +1452,7 @@
 ;; stddev: 25.37009062064625
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 169 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 169 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1464,7 +1464,7 @@
 ;; stddev: 25.485690839839805
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 170 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 170 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1476,7 +1476,7 @@
 ;; stddev: 25.4296051943355
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 171 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 171 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1488,7 +1488,7 @@
 ;; stddev: 25.457667463431637
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 172 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 172 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1500,7 +1500,7 @@
 ;; stddev: 25.71587038169055
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 173 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 173 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1512,7 +1512,7 @@
 ;; stddev: 25.576165379136373
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 174 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 174 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1524,7 +1524,7 @@
 ;; stddev: 25.200662140444848
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 175 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 175 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1536,7 +1536,7 @@
 ;; stddev: 25.19575450424946
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 176 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 176 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1548,7 +1548,7 @@
 ;; stddev: 25.05059459262701
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 177 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 177 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1560,7 +1560,7 @@
 ;; stddev: 24.977784041535397
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 178 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 178 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1572,7 +1572,7 @@
 ;; stddev: 25.61417741826216
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 179 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 179 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1584,7 +1584,7 @@
 ;; stddev: 24.73772355857809
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 180 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 180 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1596,7 +1596,7 @@
 ;; stddev: 25.216504926257624
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 181 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 181 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1608,7 +1608,7 @@
 ;; stddev: 25.69492889091934
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 182 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 182 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1620,7 +1620,7 @@
 ;; stddev: 27.021327592422
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 183 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 183 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1632,7 +1632,7 @@
 ;; stddev: 28.085425899057604
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 184 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 184 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1644,7 +1644,7 @@
 ;; stddev: 29.319115356878616
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 185 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 185 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1656,7 +1656,7 @@
 ;; stddev: 31.343678886758106
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 186 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 186 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1668,7 +1668,7 @@
 ;; stddev: 32.57671326344932
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 187 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 187 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1680,7 +1680,7 @@
 ;; stddev: 33.3196228341849
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 188 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 188 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1692,7 +1692,7 @@
 ;; stddev: 33.89583482471922
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 189 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 189 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1704,7 +1704,7 @@
 ;; stddev: 34.458985050474105
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 190 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 190 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1716,7 +1716,7 @@
 ;; stddev: 35.23724131617542
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 191 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 191 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1728,7 +1728,7 @@
 ;; stddev: 35.05328667049885
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 192 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 192 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1740,7 +1740,7 @@
 ;; stddev: 35.55689829315329
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 193 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 193 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1752,7 +1752,7 @@
 ;; stddev: 34.92423034032374
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 194 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 194 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1764,7 +1764,7 @@
 ;; stddev: 35.72564762973868
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 195 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 195 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1776,7 +1776,7 @@
 ;; stddev: 34.95758228346077
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 196 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 196 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1788,7 +1788,7 @@
 ;; stddev: 35.32932280253892
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 197 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 197 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1800,7 +1800,7 @@
 ;; stddev: 35.41750015833804
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 198 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 198 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.
@@ -1812,7 +1812,7 @@
 ;; stddev: 35.359902015711526
 
 ;; run-statistics-7:
-;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-lego strategy (sample-size: 10000) ====
+;; ==== Count Limited Invocation of Spirits + Crazy Invocation of Spirits the number of pulls per 5-Stars Hero when using the dual-pool strategy (sample-size: 10000) ====
 ;; -- Firstly, pulling in Limited Invocation of Spirits (init-shared-pity:0)
 ;; If 199 pulls do not yield a 5-Stars Hero, switch to Crazy Invocation of Spirits until a 5-Stars Hero is pulled, then return to Limited Invocation of Spirits and continue pulling until a Limited 5-Stars Hero is obtained.
 ;; If 199 pulls yield a 5-Stars Hero, if it is a Limited 5-Stars Hero, then stop; otherwise, continue pulling until a Limited 5-Stars Hero is obtained.

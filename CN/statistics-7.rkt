@@ -15,7 +15,7 @@
   (define adjoint-pool-name (get-field name adjoint-pool))
   (define shared-pity-system (get-field pity-system limited-pool))
 
-  (define (dual-lego-optimization-strategy)
+  (define (dual-pool-optimization-strategy)
     (send limited-pool reset)
     (send adjoint-pool reset)
     (set-field! current-pity shared-pity-system init-shared-pity)
@@ -60,7 +60,7 @@
                      (append status-chains (list (list 'continue-in-limited (add1 pull-count)))))
                (loop (add1 pull-count) 5-stars-count status status-chains)))]
         )))
-  (let* ((samples (for/list ([i (in-range sample-size)]) (dual-lego-optimization-strategy)))
+  (let* ((samples (for/list ([i (in-range sample-size)]) (dual-pool-optimization-strategy)))
          (lst-of-pull-count (map first samples))
          (lst-of-5-stars-count (map second samples))
          (lst-of-status-chains (map third samples))
@@ -125,7 +125,7 @@
 ;; 133 pulls: average 97.11788095238096 vs 95.09224428571429
 ;; 198 pulls: average 90.08062547619048 vs 90.37361166666666
 ;;
-;; Therefore, start-in-limited-pulls = 133 is the best in dual-lego-optimization-strategy.
+;; Therefore, start-in-limited-pulls = 133 is the best in dual-pool-optimization-strategy.
 
 
 ;; (printf "#### adjoint pool is normal, start-in-limited-pulls=[10, 190] ####\n\n")
