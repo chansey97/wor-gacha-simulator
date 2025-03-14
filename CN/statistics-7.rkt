@@ -108,7 +108,7 @@
 ;; When adjoint pool is Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
-;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 198
+;; Risk Neutral (only pursue expected value minimization): start-in-limited-pulls = 198
 ;;
 ;; P.S. 133 can also be computed by math:
 ;; Assuming x is the start-in-limited-pulls, solve the minimum of f(x) = (x + (200 - x) + (200 -x)) / 2,
@@ -119,7 +119,7 @@
 ;; When adjoint pool is Crazy Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
-;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 197
+;; Risk Neutral (only pursue expected value minimization): start-in-limited-pulls = 197
 ;;
 ;; There is no many differences between no Crazy and Crazy 
 ;; 133 pulls: average 97.11788095238096 vs 95.09224428571429
