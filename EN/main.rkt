@@ -282,7 +282,7 @@
   (define pool-name (get-field name pool))
   (define pool-pity-system (get-field pity-system pool))
   (printf "~a\n" pool-name)
-  (printf "Enter 's' for a single pull, 'm' for 10-pulls, or 'b' to return to the main menu:\n")
+  (printf "Enter 's' for a single pull, 'm' for a 10-pull, or 'b' to return to the main menu:\n")
   (let loop ()
     (flush-output)
     (match (read-line)
