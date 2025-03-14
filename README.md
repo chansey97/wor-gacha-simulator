@@ -3,7 +3,7 @@ Gacha Simulator of [Watcher of Realms](https://www.watcherofrealms.com/) [潮汐
 
 The game’s pools can share a pity system,which allows for varied pulling strategies. This project aims to evaluate these pools to find the best strategy.
 
-Conclusion: See [CN server](./CN/conclusion.md) and [International Server](./EN/conclusion.md)
+Conclusion: See [CN server (国服)](./CN/conclusion.md) and [International Server (国际服)](./EN/conclusion.md)
 
 ## Basic Usage
 
