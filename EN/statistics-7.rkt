@@ -110,18 +110,18 @@
 ;; When ajoint pool is Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
-;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 180
+;; Risk Neutral (only pursue expected value minimization): start-in-limited-pulls = 180
 ;;
 ;; P.S. 133 can also be computed by math:
-;; Assuming x is the start-in-limited-pulls, solve the maximum of f(x) = (x + (200 - x) + (200 -x)) / 2,
+;; Assuming x is the start-in-limited-pulls, solve the minimum of f(x) = (x + (200 - x) + (200 -x)) / 2,
 ;; where x > 100 and (x + (200 - x) + (200 -x)) / 2 >= x
 ;; Thus 100 < x <= 400/3 = 133.3333
-;; Since f(x) is monotonic decreasing, so the maximum of f(x) = f(133.3333) = 133.33333
+;; Since f(x) is monotonic decreasing, so the minimum of f(x) = f(133.3333) = 133.33333
 ;;
 ;; When ajoint pool is Crazy Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
-;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 180
+;; Risk Neutral (only pursue expected value minimization): start-in-limited-pulls = 180
 ;;
 ;; There is no many differences between no Crazy and Crazy 
 ;; 133 pulls: average 94.28913023809524 vs 92.38139047619048
