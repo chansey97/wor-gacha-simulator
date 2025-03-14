@@ -59,38 +59,51 @@
 (run-statistics-1 10000)
 
 ;; run-statistics-1:
-;; ==== Count Invocation of Spirits, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000000). ====
-;; average: 120.967053
+;; ==== Count Invocation of Spirits, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000). ====
+;; average: 121.0329
 ;; median: 139.0
-;; max: 199.0
+;; max: 195.0
 ;; min: 1.0
-;; stddev: 66.01915891690223
-;; 22.17697% of players within [1, 50] pulls obtain a 5-Stars Hero for the first time.
-;; 17.25186% of players within [51, 100] pulls obtain a 5-Stars Hero for the first time.
-;; 13.44356% of players within [101, 150] pulls obtain a 5-Stars Hero for the first time.
-;; 47.12761% of players within [151, 200] pulls obtain a 5-Stars Hero for the first time.
+;; stddev: 65.98001680501453
+;; 21.87% of players within [1, 50] pulls obtain a 5-Stars Hero for the first time.
+;; 17.6% of players within [51, 100] pulls obtain a 5-Stars Hero for the first time.
+;; 13.39% of players within [101, 150] pulls obtain a 5-Stars Hero for the first time.
+;; 47.14% of players within [151, 200] pulls obtain a 5-Stars Hero for the first time.
 ;; 0.0% of players through the hard pity of 200 pulls obtain a 5-Stars Hero for the first time.
 
-;; ==== Count Crazy Invocation of Spirits, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000000). ====
-;; average: 84.4828512
+;; ==== Count Crazy Invocation of Spirits, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000). ====
+;; average: 85.5268
 ;; median: 70.0
-;; max: 199.0
+;; max: 195.0
 ;; min: 1.0
-;; stddev: 62.58755226016319
-;; 39.4783% of players within [1, 50] pulls obtain a 5-Stars Hero for the first time.
-;; 23.89801% of players within [51, 100] pulls obtain a 5-Stars Hero for the first time.
-;; 14.47442% of players within [101, 150] pulls obtain a 5-Stars Hero for the first time.
-;; 22.14927% of players within [151, 200] pulls obtain a 5-Stars Hero for the first time.
+;; stddev: 62.89811349921395
+;; 39.15% of players within [1, 50] pulls obtain a 5-Stars Hero for the first time.
+;; 23.19% of players within [51, 100] pulls obtain a 5-Stars Hero for the first time.
+;; 14.98% of players within [101, 150] pulls obtain a 5-Stars Hero for the first time.
+;; 22.68% of players within [151, 200] pulls obtain a 5-Stars Hero for the first time.
 ;; 0.0% of players through the hard pity of 200 pulls obtain a 5-Stars Hero for the first time.
 
-;; ==== Count Normal Divine Summoning, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000000). ====
-;; average: 10.7673078
+;; ==== Count Normal Divine Summoning, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000). ====
+;; average: 10.8303
 ;; median: 12.0
 ;; max: 20.0
 ;; min: 1.0
-;; stddev: 5.988317054069462
-;; 26.60986% of players within [1, 5] pulls obtain a 5-Stars Hero for the first time.
-;; 19.54613% of players within [6, 10] pulls obtain a 5-Stars Hero for the first time.
-;; 25.74233% of players within [11, 15] pulls obtain a 5-Stars Hero for the first time.
-;; 28.10168% of players within [16, 20] pulls obtain a 5-Stars Hero for the first time.
-;; 5.41421% of players through the hard pity of 20 pulls obtain a 5-Stars Hero for the first time.
+;; stddev: 6.013277135639102
+;; 26.16% of players within [1, 5] pulls obtain a 5-Stars Hero for the first time.
+;; 20.06% of players within [6, 10] pulls obtain a 5-Stars Hero for the first time.
+;; 24.67% of players within [11, 15] pulls obtain a 5-Stars Hero for the first time.
+;; 29.11% of players within [16, 20] pulls obtain a 5-Stars Hero for the first time.
+;; 5.65% of players through the hard pity of 20 pulls obtain a 5-Stars Hero for the first time.
+
+;; ==== Count Crazy Divine Summoning, the expected number of pulls to obtain a 5-Stars Hero for the first time (sample-size: 10000). ====
+;; average: 7.3344
+;; median: 6.0
+;; max: 20.0
+;; min: 1.0
+;; stddev: 5.309348042839158
+;; 47.21% of players within [1, 5] pulls obtain a 5-Stars Hero for the first time.
+;; 25.0% of players within [6, 10] pulls obtain a 5-Stars Hero for the first time.
+;; 17.71% of players within [11, 15] pulls obtain a 5-Stars Hero for the first time.
+;; 10.08% of players within [16, 20] pulls obtain a 5-Stars Hero for the first time.
+;; 1.44% of players through the hard pity of 20 pulls obtain a 5-Stars Hero for the first time.
+
