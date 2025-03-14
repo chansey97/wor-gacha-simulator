@@ -1,6 +1,10 @@
 # wor-gacha-simulator
 Gacha Simulator of [Watcher of Realms](https://www.watcherofrealms.com/) [潮汐守望者](http://cxswz.moonton.com/)抽卡模拟器
 
+The game’s pools can share a pity system,which allows for varied pulling strategies. This project aims to evaluate these pools to find the best strategy.
+
+Conclusion: See [CN server](./CN/conclusion.md) and [International Server](./EN/conclusion.md)
+
 ## Basic Usage
 
 1. Install [Racket](https://racket-lang.org/)
