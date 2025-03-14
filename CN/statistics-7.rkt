@@ -105,7 +105,7 @@
 
 ;; Conclusion:
 ;;
-;; When ajoint pool is Invocation of Spirits:
+;; When adjoint pool is Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
 ;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 198
@@ -116,7 +116,7 @@
 ;; Thus 100 < x <= 400/3 = 133.3333
 ;; Since f(x) is monotonic decreasing, so the maximum of f(x) = f(133.3333) = 133.33333
 ;;
-;; When ajoint pool is Crazy Invocation of Spirits:
+;; When adjoint pool is Crazy Invocation of Spirits:
 ;;
 ;; Risk Averse (avoid worst case): start-in-limited-pulls = 133
 ;; Risk Neutral (only pursue expected value maximization): start-in-limited-pulls = 197
