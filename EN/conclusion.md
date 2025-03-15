@@ -75,7 +75,7 @@ Minimizing  $f(x) = \frac{X + (200 - X) + (200 - X)}{2}$:
 
 **Q:** What if the Limited Invocation of Spirits is accompanied by two pools (e.g., Special Invocation and Crazy Invocation)?
 
-**A:** If the Limited Pool features good heroes, prioritize Special Invocation as the secondary pool. The Crazy Pool's doubled probability boost provides diminishing returns under Dual-Pool Strategy.
+**A:** If the Special Invocation features good heroes, prioritize Special Invocation as the secondary pool. The Crazy Pool's doubled probability boost provides diminishing returns under Dual-Pool Strategy.
 
 | Limited Invocation of Spirits + Special Invocation of Spirits | average | max    |
 | ------------------------------------------------------------- | ------- | ------ |
