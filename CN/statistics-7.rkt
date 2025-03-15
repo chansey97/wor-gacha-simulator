@@ -21,7 +21,7 @@
     (set-field! current-pity shared-pity-system init-shared-pity)
     
     (let loop ((pull-count 0)
-               (5-stars-count 0)
+               (5-star-count 0)
                (status 'start-in-limited)
                (status-chains '((start-in-limited 0))))
       (match status
@@ -31,56 +31,56 @@
                     (card (first cards))
                     (hero (card-hero card))
                     (rarity (card-rarity card)))
-               (if (= (rarity-stars rarity) 5)
+               (if (= (rarity-star rarity) 5)
                    (if (string=? hero limited-pool-up-hero)
-                       (list (add1 pull-count) (add1 5-stars-count)
+                       (list (add1 pull-count) (add1 5-star-count)
                              (append status-chains (list (list status (add1 pull-count)))))
-                       (loop (add1 pull-count) (add1 5-stars-count) 'continue-in-limited
+                       (loop (add1 pull-count) (add1 5-star-count) 'continue-in-limited
                              (append status-chains (list (list 'continue-in-limited (add1 pull-count))))))
-                   (loop (add1 pull-count) 5-stars-count status status-chains)))
-             (loop pull-count 5-stars-count 'pull-in-adjoint
+                   (loop (add1 pull-count) 5-star-count status status-chains)))
+             (loop pull-count 5-star-count 'pull-in-adjoint
                    (append status-chains (list (list 'pull-in-adjoint pull-count)))))]
         ['continue-in-limited
          (let* ((cards (send limited-pool pull))
                 (card (first cards))
                 (hero (card-hero card))
                 (rarity (card-rarity card)))
-           (if (= (rarity-stars rarity) 5)
+           (if (= (rarity-star rarity) 5)
                (if (string=? hero limited-pool-up-hero)
-                   (list (add1 pull-count) (add1 5-stars-count)
+                   (list (add1 pull-count) (add1 5-star-count)
                          (append status-chains (list (list status (add1 pull-count)))))
-                   (loop (add1 pull-count) (add1 5-stars-count) status status-chains))
-               (loop (add1 pull-count) 5-stars-count status status-chains)))]
+                   (loop (add1 pull-count) (add1 5-star-count) status status-chains))
+               (loop (add1 pull-count) 5-star-count status status-chains)))]
         ['pull-in-adjoint
          (let* ((cards (send adjoint-pool pull))
                 (card (first cards))
                 (rarity (card-rarity card)))
-           (if (= (rarity-stars rarity) 5)
-               (loop (add1 pull-count) (add1 5-stars-count) 'continue-in-limited
+           (if (= (rarity-star rarity) 5)
+               (loop (add1 pull-count) (add1 5-star-count) 'continue-in-limited
                      (append status-chains (list (list 'continue-in-limited (add1 pull-count)))))
-               (loop (add1 pull-count) 5-stars-count status status-chains)))]
+               (loop (add1 pull-count) 5-star-count status status-chains)))]
         )))
   (let* ((samples (for/list ([i (in-range sample-size)]) (dual-pool-optimization-strategy)))
          (lst-of-pull-count (map first samples))
-         (lst-of-5-stars-count (map second samples))
+         (lst-of-5-star-count (map second samples))
          (lst-of-status-chains (map third samples))
-         (global-pulls-per-5-stars (exact->inexact (/ (apply + lst-of-pull-count) (apply + lst-of-5-stars-count))))
-         (individual-pulls-per-5-stars-samples (map / lst-of-pull-count lst-of-5-stars-count))
-         (individual-pulls-per-5-stars-average (exact->inexact (mean individual-pulls-per-5-stars-samples)))
-         (individual-pulls-per-5-stars-median (exact->inexact (median < individual-pulls-per-5-stars-samples)))
-         (individual-pulls-per-5-stars-max (exact->inexact (apply max individual-pulls-per-5-stars-samples)))
-         ;; (individual-pulls-per-5-stars-max-detail
-         ;;  (let ((max-index (index-of individual-pulls-per-5-stars-samples (exact-round individual-pulls-per-5-stars-max))))
+         (global-pulls-per-5-star (exact->inexact (/ (apply + lst-of-pull-count) (apply + lst-of-5-star-count))))
+         (individual-pulls-per-5-star-samples (map / lst-of-pull-count lst-of-5-star-count))
+         (individual-pulls-per-5-star-average (exact->inexact (mean individual-pulls-per-5-star-samples)))
+         (individual-pulls-per-5-star-median (exact->inexact (median < individual-pulls-per-5-star-samples)))
+         (individual-pulls-per-5-star-max (exact->inexact (apply max individual-pulls-per-5-star-samples)))
+         ;; (individual-pulls-per-5-star-max-detail
+         ;;  (let ((max-index (index-of individual-pulls-per-5-star-samples (exact-round individual-pulls-per-5-star-max))))
          ;;    (list (list-ref lst-of-pull-count max-index)
-         ;;          (list-ref lst-of-5-stars-count max-index)
+         ;;          (list-ref lst-of-5-star-count max-index)
          ;;          (list-ref lst-of-status-chains max-index))))
-         (individual-pulls-per-5-stars-min (exact->inexact (apply min individual-pulls-per-5-stars-samples)))
-         (individual-pulls-per-5-stars-stddev (exact->inexact (stddev individual-pulls-per-5-stars-samples)))
+         (individual-pulls-per-5-star-min (exact->inexact (apply min individual-pulls-per-5-star-samples)))
+         (individual-pulls-per-5-star-stddev (exact->inexact (stddev individual-pulls-per-5-star-samples)))
          ;; (debug-detail
-         ;;  (let ((median-index (index-of individual-pulls-per-5-stars-samples 100)))
+         ;;  (let ((median-index (index-of individual-pulls-per-5-star-samples 100)))
          ;;    (if median-index
          ;;        (list (list-ref lst-of-pull-count median-index)
-         ;;              (list-ref lst-of-5-stars-count median-index)
+         ;;              (list-ref lst-of-5-star-count median-index)
          ;;              (list-ref lst-of-status-chains median-index))
          ;;        #f)))
          )
@@ -92,13 +92,13 @@
             start-in-limited-pulls adjoint-pool-name limited-pool-name)
     (printf "-- 如果 ~a 抽获得了5星英雄，如果是限定5星英雄，则结束，否则继续抽，直到抽出限定5星英雄\n"
             start-in-limited-pulls)
-    (printf "平均抽数（宏观指标）: ~a\n" global-pulls-per-5-stars)
-    (printf "平均抽数: ~a\n" individual-pulls-per-5-stars-average)
-    (printf "中位数: ~a\n" individual-pulls-per-5-stars-median)
-    (printf "最大值: ~a\n" individual-pulls-per-5-stars-max)
-    ;; (printf "最大值的策略细节：~a\n" individual-pulls-per-5-stars-max-detail)
-    (printf "最小值: ~a\n" individual-pulls-per-5-stars-min)
-    (printf "标准差: ~a\n" individual-pulls-per-5-stars-stddev)
+    (printf "平均抽数（宏观指标）: ~a\n" global-pulls-per-5-star)
+    (printf "平均抽数: ~a\n" individual-pulls-per-5-star-average)
+    (printf "中位数: ~a\n" individual-pulls-per-5-star-median)
+    (printf "最大值: ~a\n" individual-pulls-per-5-star-max)
+    ;; (printf "最大值的策略细节：~a\n" individual-pulls-per-5-star-max-detail)
+    (printf "最小值: ~a\n" individual-pulls-per-5-star-min)
+    (printf "标准差: ~a\n" individual-pulls-per-5-star-stddev)
     ;; (printf "debug-detail：~a\n" debug-detail)
     (printf "\n")
     ))

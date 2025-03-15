@@ -15,20 +15,20 @@
   (define pity-system (get-field pity-system pool))
   (define hard-pity-threshold (get-field hard-pity-threshold pity-system))
 
-  (define (pull-until-get-5-stars)
+  (define (pull-until-get-5-star)
     (when first-only
       (send pool reset))
     (let loop ((count 0))
       (let* ((cards (send pool pull))
              (card (first cards))
              (rarity (card-rarity card)))
-        (if (= (rarity-stars rarity) 5)
+        (if (= (rarity-star rarity) 5)
             (add1 count)
             (loop (add1 count))))))
 
   (send pool reset)
   (let* ((samples (for/list ([i (in-range sample-size)])
-                    (pull-until-get-5-stars)))
+                    (pull-until-get-5-star)))
          (average (exact->inexact (mean samples)))
          (median (exact->inexact (median < samples)))
          (max (exact->inexact (apply max samples)))

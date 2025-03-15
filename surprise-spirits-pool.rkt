@@ -19,7 +19,7 @@
         (match-let ([(list card) (super pull)])
           (cond
             [(and (not bonus-actived)
-                  (= (rarity-stars (card-rarity card)) 5))
+                  (= (rarity-star (card-rarity card)) 5))
              (set! bonus-actived #t)
              (set-field! current-pity pity-system hard-pity-threshold)
              (match-let ([(list bonus-card) (super pull)])

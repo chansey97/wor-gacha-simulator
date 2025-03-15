@@ -1,4 +1,4 @@
-## Count the number of pulls per 5-stars hero (sample size: 10000)
+## Count the number of pulls per 5-star hero (sample size: 10000)
 
 |                                | average | median | max    | stddev | hard pity % |
 | -----------------------------  | ------- | ------ | ------ | ------ | ------- |
@@ -14,13 +14,13 @@
 
 Limited Invocation of Spirits > Regular Invocation of Spirits: 
 
-The Limited Invocation of Spirits maintains an independent pity system.  When a 5-stars hero is obtained, the shared pity resets, but the  independent pity remains intact. This mechanism makes it superior to the regular Invocation of Spirits.
+The Limited Invocation of Spirits maintains an independent pity system.  When a 5-star hero is obtained, the shared pity resets, but the  independent pity remains intact. This mechanism makes it superior to the regular Invocation of Spirits.
 
 Crazy Invocation of Spirits > Limited Invocation of Spirits: 
 
-Even with the independent pity system of Limited Invocation of Spirits, it still cannot surpass the Crazy Invocation of Spirits' doubled probability boost for obtaining 5-stars heroes.
+Even with the independent pity system of Limited Invocation of Spirits, it still cannot surpass the Crazy Invocation of Spirits' doubled probability boost for obtaining 5-star heroes.
 
-## Count the number of pulls per 5-stars lord hero (sample size: 10000)
+## Count the number of pulls per 5-star lord hero (sample size: 10000)
 
 |                               | average | median | max     | stddev | hard pity % |
 | ----------------------------- | ------- | ------ | ------- | ------ | ----------- |
@@ -38,15 +38,15 @@ Using the Invocation of Spirits as the **secondary pool** example:
 
 Begin summoning in Limited Invocation of Spirits (initial shared pity: 0).
 
-If no 5-stars hero is obtained within X pulls:
+If no 5-star hero is obtained within X pulls:
 
-- Switch to Invocation of Spirits until obtaining a 5-stars hero
-- Return to Limited Invocation of Spirits until obtaining the first limited 5-stars hero
+- Switch to Invocation of Spirits until obtaining a 5-star hero
+- Return to Limited Invocation of Spirits until obtaining the first limited 5-star hero
 
-If a 5-stars hero is obtained within X pulls:
+If a 5-star hero is obtained within X pulls:
 
-- If it's the limited 5-stars hero: Stop
-- Otherwise: Continue summoning until obtaining the first limited 5-stars hero
+- If it's the limited 5-star hero: Stop
+- Otherwise: Continue summoning until obtaining the first limited 5-star hero
 
 **Choosing X:**
 
@@ -58,7 +58,7 @@ If a 5-stars hero is obtained within X pulls:
 
   Improves success rate but risks significant losses in worst-case scenarios (e.g., obtaining the limited hero on the 190th pull).
 
-**Optimal X = 133 minimizes the maximum required pulls per 5-stars hero while avoiding worst-case scenarios.**
+**Optimal X = 133 minimizes the maximum required pulls per 5-star hero while avoiding worst-case scenarios.**
 
 *P.S. Mathematical derivation:*
 

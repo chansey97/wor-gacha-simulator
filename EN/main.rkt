@@ -49,13 +49,13 @@
          [pity-system spirits-pity-system]))
 
   ;; Special Invocation of Spirits
-  (define special-spirits-up-heroes-5-stars-lord '())
-  (define special-spirits-up-heroes-5-stars '("Constance" "Calypso"))
-  (define special-spirits-up-heroes-4-stars '("Esme" "Cyrene" "Osiren"))
+  (define special-spirits-up-heroes-5-star-lord '())
+  (define special-spirits-up-heroes-5-star '("Constance" "Calypso"))
+  (define special-spirits-up-heroes-4-star '("Esme" "Cyrene" "Osiren"))
   (define special-spirits-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) spirits-rarities special-spirits-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-spirits-up-heroes-5-stars)
-        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-spirits-up-heroes-4-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) spirits-rarities special-spirits-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-spirits-up-heroes-5-star)
+        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-spirits-up-heroes-4-star)))
   (define special-spirits-pool-name "Special Invocation of Spirits")
   (define special-spirits-pool
     (new spirits-pool%
@@ -64,16 +64,16 @@
          [pity-system spirits-pity-system]))
 
   ;; Limited Invocation of Spirits
-  (define limited-spirits-up-hero-5-stars "Diaochan")
+  (define limited-spirits-up-hero-5-star "Diaochan")
   (define limited-spirits-rarities
-    (add-hero spirits-rarities limited-spirits-up-hero-5-stars 5 #f 15))
+    (add-hero spirits-rarities limited-spirits-up-hero-5-star 5 #f 15))
   (define limited-spirits-pool-name "Limited Invocation of Spirits")
   (define limited-spirits-pool
     (new limited-spirits-pool%
          [name limited-spirits-pool-name]
          [base-rarities limited-spirits-rarities]
          [pity-system spirits-pity-system]
-         [up-hero limited-spirits-up-hero-5-stars]))
+         [up-hero limited-spirits-up-hero-5-star]))
 
   ;; Crazy Invocation of Spirits
   (define crazy-spirits-rarities
@@ -104,11 +104,11 @@
          [pity-system ancient-pity-system]))
 
   ;; Special Ancient Summoning
-  (define special-ancient-up-heroes-5-stars-lord '("Cyrus"))
-  (define special-ancient-up-heroes-5-stars '("Lu Bu"))
+  (define special-ancient-up-heroes-5-star-lord '("Cyrus"))
+  (define special-ancient-up-heroes-5-star '("Lu Bu"))
   (define special-ancient-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) ancient-rarities special-ancient-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _                special-ancient-up-heroes-5-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) ancient-rarities special-ancient-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _                special-ancient-up-heroes-5-star)))
   (define special-ancient-pool-name "Special Ancient Summoning")
   (define special-ancient-pool
     (new ancient-pool%
@@ -126,13 +126,13 @@
          [pity-system divine-pity-system]))
 
   ;; Special Divine Summoning
-  (define special-divine-up-heroes-5-stars-lord '())
-  (define special-divine-up-heroes-5-stars '("Constance" "Calypso"))
-  (define special-divine-up-heroes-4-stars '("Esme" "Cyrene" "Osiren"))
+  (define special-divine-up-heroes-5-star-lord '())
+  (define special-divine-up-heroes-5-star '("Constance" "Calypso"))
+  (define special-divine-up-heroes-4-star '("Esme" "Cyrene" "Osiren"))
   (define special-divine-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) divine-rarities special-divine-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-divine-up-heroes-5-stars)
-        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-divine-up-heroes-4-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) divine-rarities special-divine-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-divine-up-heroes-5-star)
+        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-divine-up-heroes-4-star)))
   (define special-divine-pool-name "Special Divine Summoning")
   (define special-divine-pool
     (new divine-pool%
@@ -154,31 +154,31 @@
     (printf "Welcome to WOR gacha simulator!\n")
     (printf "1. ~a\n" normal-spirits-pool-name)
     (printf "2. ~a -" special-spirits-pool-name)
-    (for ([h special-spirits-up-heroes-5-stars-lord])
+    (for ([h special-spirits-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-spirits-up-heroes-5-stars])
+    (for ([h special-spirits-up-heroes-5-star])
       (printf " ~a" h))
-    (for ([h special-spirits-up-heroes-4-stars])
+    (for ([h special-spirits-up-heroes-4-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "3. ~a -" limited-spirits-pool-name)
-    (printf " ~a\n" limited-spirits-up-hero-5-stars)
+    (printf " ~a\n" limited-spirits-up-hero-5-star)
     (printf "4. ~a\n" crazy-spirits-pool-name)
     (printf "5. ~a\n" surprise-spirits-pool-name)
     (printf "6. ~a\n" normal-ancient-pool-name)
     (printf "7. ~a -" special-ancient-pool-name)
-    (for ([h special-ancient-up-heroes-5-stars-lord])
+    (for ([h special-ancient-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-ancient-up-heroes-5-stars])
+    (for ([h special-ancient-up-heroes-5-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "8. ~a\n" normal-divine-pool-name)
     (printf "9. ~a -" special-divine-pool-name)
-    (for ([h special-divine-up-heroes-5-stars-lord])
+    (for ([h special-divine-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-divine-up-heroes-5-stars])
+    (for ([h special-divine-up-heroes-5-star])
       (printf " ~a" h))
-    (for ([h special-divine-up-heroes-4-stars])
+    (for ([h special-divine-up-heroes-4-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "10. ~a\n" crazy-divine-pool-name)

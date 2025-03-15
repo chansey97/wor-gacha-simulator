@@ -5,12 +5,12 @@
 ;; Heroes' rarities of Spirits
 (define spirits-rarities
   (list
-   (rarity "5-Stars Lord Hero"   #e0.0004 5 #t
+   (rarity "5-Star Lord Hero"   #e0.0004 5 #t
            '(
              "Torodor"        "King Harz"      "Aracha Morrigan" "Twinfiend"     
              "Venoma"         "Ajax"           "Laya"
              ))
-   (rarity "5-Stars Normal Hero" #e0.0046 5 #f
+   (rarity "5-Star Normal Hero" #e0.0046 5 #f
            '(
              "Zelus"          "Valkyra"        "Calypso"         "Nocturne"     
              "Setram"         "Khamet"         "Valeriya"        "Brokkir"      
@@ -29,12 +29,12 @@
              "Aeris"          "Krodor"         "Helga"           "Yuri"         
              "Lynx"
              ))
-   (rarity "4-Stars Lord Hero"   #e0.0012 4 #t
+   (rarity "4-Star Lord Hero"   #e0.0012 4 #t
            '(
              "Wrath"          "Ain"            "Isolde"          "Luneria"      
              "Aeon"           "Raiden"         "Pyros"
              ))
-   (rarity "4-Stars Normal Hero" #e0.0788 4 #f
+   (rarity "4-Star Normal Hero" #e0.0788 4 #f
            '(
              "Komodo"         "Gluttony"       "Cyrene"          "Baron"        
              "Scorch"         "Daemon"         "Titus"           "Livian"       
@@ -50,11 +50,11 @@
              "Dolores"        "Vortex"         "Lightlocke"      "Midan"        
              "Hollow"         "Nissandei"      "Lili"
              ))
-   (rarity "3-Stars Lord Hero"   #e0.0399 3 #t
+   (rarity "3-Star Lord Hero"   #e0.0399 3 #t
            '(
              "Borut"          "Dagna"          "Niro"
              ))
-   (rarity "3-Stars Normal Hero" #e0.3751 3 #f
+   (rarity "3-Star Normal Hero" #e0.3751 3 #f
            '(
              "Rex"            "Glen"           "Narvi"           "Skulf"        
              "Gnash"          "Decimus"        "Barclay"         "Ogrul"        
@@ -64,7 +64,7 @@
              "Nunea"          "Camille"        "Aryn"            "Spring"       
              "Autumn"
              ))
-   (rarity "2-Stars Normal Hero"        #e0.5    2 #f
+   (rarity "2-Star Normal Hero"        #e0.5    2 #f
            '(
              "Hayden"         "Rogers"         "Arlow"           "Cutter"       
              "Liam"           "Rum-Nose"       "Wagrak"          "Ryder"        
@@ -75,12 +75,12 @@
 ;; Heroes' rarities of Divine
 (define divine-rarities
   (list
-   (rarity "5-Stars Lord Hero"   #e0.004 5 #t
+   (rarity "5-Star Lord Hero"   #e0.004 5 #t
            '(
              "Torodor"        "King Harz"      "Aracha Morrigan" "Twinfiend"     
              "Venoma"         "Ajax"           "Laya"
              ))
-   (rarity "5-Stars Normal Hero" #e0.056 5 #f
+   (rarity "5-Star Normal Hero" #e0.056 5 #f
            '(
              "Zelus"          "Valkyra"        "Calypso"         "Nocturne"     
              "Setram"         "Khamet"         "Valeriya"        "Brokkir"      
@@ -99,12 +99,12 @@
              "Aeris"          "Krodor"         "Helga"           "Yuri"         
              "Lynx"
              ))
-   (rarity "4-Stars Lord Hero"   #e0.0122 4 #t
+   (rarity "4-Star Lord Hero"   #e0.0122 4 #t
            '(
              "Wrath"          "Ain"            "Isolde"          "Luneria"      
              "Aeon"           "Raiden"         "Pyros"
              ))
-   (rarity "4-Stars Normal Hero" #e0.9278 4 #f
+   (rarity "4-Star Normal Hero" #e0.9278 4 #f
            '(
              "Komodo"         "Gluttony"       "Cyrene"          "Baron"        
              "Scorch"         "Daemon"         "Titus"           "Livian"       
@@ -124,7 +124,7 @@
 ;; Heroes' rarities of Ancient
 (define ancient-rarities
   (list
-   (rarity "5-Stars Lord Hero" #e0.008 5 #t
+   (rarity "5-Star Lord Hero" #e0.008 5 #t
            '(
              "Torodor"        "King Harz"      "Aracha"          "Morrigan"     
              "Twinfiend"      "Venoma"         "Ajax"            "Ghan"         
@@ -132,7 +132,7 @@
              "Solcadens"      "Praetus"        "Valderon"        "Iovar"        
              "Ymiret"         "Ingrid"         "Rygar"
              ))
-   (rarity "5-Stars Normal Hero" #e0.01 5 #f
+   (rarity "5-Star Normal Hero" #e0.01 5 #f
            '(
              "Lugaru"         "Dassomi"        "Valeriya"        "Cerberus"     
              "Kaede"          "Durza"          "Sargak"          "Carnelian"    
@@ -140,24 +140,24 @@
              "Eunomia"        "Valkyra"        "Constance"       "Uredin"       
              "Admiral Claw"   "Alistair"       "Jeera"           "Lu Bu"
              ))
-   (rarity "4-Stars Lord Hero" #e0.06 4 #t
+   (rarity "4-Star Lord Hero" #e0.06 4 #t
            '(
              "Wrath"          "Ain"            "Isolde"          "Luneria"      
              "Aeon"           "Raiden"         "Pyros"           "Vladov"
              "Elysia"
              ))
-   (rarity "4-Stars Normal Hero" #e0.05 4 #f
+   (rarity "4-Star Normal Hero" #e0.05 4 #f
            '(
              "Brienne"        "Soleil"         "Cyrene"          "Nauvras"      
              "Brunor"         "Lightlocke"     "Livian"          "Greed"        
              "Aveline"        "Idril"          "Eona"            "Atrox"        
              "Vargus"         "Jorge"
              ))
-   (rarity "3-Stars Lord Hero" #e0.27 3 #t
+   (rarity "3-Star Lord Hero" #e0.27 3 #t
            '(
              "Borut"          "Dagna"          "Niro"
              ))
-   (rarity "3-Stars Normal Hero" #e0.602 3 #f
+   (rarity "3-Star Normal Hero" #e0.602 3 #f
            '(
              "Morene"         "Amahle"         "Cuke"            "Drogo"        
              "Elukas"         "Voltus"         "Sorzus"          "Gonkba"       

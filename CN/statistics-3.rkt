@@ -13,12 +13,12 @@
                       normal-divine-pool
                       crazy-divine-pool))
   
-  (define (pull-until-get-5-stars-lord pool)
+  (define (pull-until-get-5-star-lord pool)
     (let loop ((count 0))
       (let* ((cards (send pool pull))
              (card (first cards))
              (rarity (card-rarity card)))
-        (if (and (= (rarity-stars rarity) 5)
+        (if (and (= (rarity-star rarity) 5)
                  (rarity-is-lord rarity))
             (add1 count)
             (loop (add1 count))))))
@@ -29,7 +29,7 @@
            (pool-name (get-field name pool))
            (hard-pity-threshold (get-field hard-pity-threshold pity-system))
            (samples (for/list ([i (in-range sample-size)])
-                      (pull-until-get-5-stars-lord pool)))
+                      (pull-until-get-5-star-lord pool)))
            (average (exact->inexact (mean samples)))
            (median (exact->inexact (median < samples)))
            (max (exact->inexact (apply max samples)))

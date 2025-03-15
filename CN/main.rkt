@@ -49,13 +49,13 @@
          [pity-system spirits-pity-system]))
 
   ;; 特定英灵召唤
-  (define special-spirits-up-heroes-5-stars-lord '())
-  (define special-spirits-up-heroes-5-stars '("康斯坦丝" "卡利普索"))
-  (define special-spirits-up-heroes-4-stars '("艾斯米" "塞蕾妮" "奥西伦"))
+  (define special-spirits-up-heroes-5-star-lord '())
+  (define special-spirits-up-heroes-5-star '("康斯坦丝" "卡利普索"))
+  (define special-spirits-up-heroes-4-star '("艾斯米" "塞蕾妮" "奥西伦"))
   (define special-spirits-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) spirits-rarities special-spirits-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-spirits-up-heroes-5-stars)
-        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-spirits-up-heroes-4-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) spirits-rarities special-spirits-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-spirits-up-heroes-5-star)
+        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-spirits-up-heroes-4-star)))
   (define special-spirits-pool-name "特定英灵召唤")
   (define special-spirits-pool
     (new spirits-pool%
@@ -64,16 +64,16 @@
          [pity-system spirits-pity-system]))
 
   ;; 限定英灵召唤
-  (define limited-spirits-up-hero-5-stars "貂蝉")
+  (define limited-spirits-up-hero-5-star "貂蝉")
   (define limited-spirits-rarities
-    (add-hero spirits-rarities limited-spirits-up-hero-5-stars 5 #f 15))
+    (add-hero spirits-rarities limited-spirits-up-hero-5-star 5 #f 15))
   (define limited-spirits-pool-name "限定英灵召唤")
   (define limited-spirits-pool
     (new limited-spirits-pool%
          [name limited-spirits-pool-name]
          [base-rarities limited-spirits-rarities]
          [pity-system spirits-pity-system]
-         [up-hero limited-spirits-up-hero-5-stars]))
+         [up-hero limited-spirits-up-hero-5-star]))
 
   ;; 狂欢英灵召唤
   (define crazy-spirits-rarities
@@ -104,11 +104,11 @@
          [pity-system ancient-pity-system]))
 
   ;; 特定远古召唤
-  (define special-ancient-up-heroes-5-stars-lord '("居鲁士"))
-  (define special-ancient-up-heroes-5-stars '("吕布"))
+  (define special-ancient-up-heroes-5-star-lord '("居鲁士"))
+  (define special-ancient-up-heroes-5-star '("吕布"))
   (define special-ancient-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) ancient-rarities special-ancient-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _                special-ancient-up-heroes-5-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) ancient-rarities special-ancient-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _                special-ancient-up-heroes-5-star)))
   (define special-ancient-pool-name "特定远古召唤")
   (define special-ancient-pool
     (new ancient-pool%
@@ -126,13 +126,13 @@
          [pity-system divine-pity-system]))
 
   ;; 特定神圣召唤
-  (define special-divine-up-heroes-5-stars-lord '())
-  (define special-divine-up-heroes-5-stars '("康斯坦丝" "卡利普索"))
-  (define special-divine-up-heroes-4-stars '("艾斯米" "塞蕾妮" "奥西伦"))
+  (define special-divine-up-heroes-5-star-lord '())
+  (define special-divine-up-heroes-5-star '("康斯坦丝" "卡利普索"))
+  (define special-divine-up-heroes-4-star '("艾斯米" "塞蕾妮" "奥西伦"))
   (define special-divine-rarities
-    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) divine-rarities special-divine-up-heroes-5-stars-lord)
-        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-divine-up-heroes-5-stars)
-        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-divine-up-heroes-4-stars)))
+    (~> (foldl (λ (hero rs) (add-hero rs hero 5 #t 14)) divine-rarities special-divine-up-heroes-5-star-lord)
+        (foldl (λ (hero rs) (add-hero rs hero 5 #f 14)) _ special-divine-up-heroes-5-star)
+        (foldl (λ (hero rs) (add-hero rs hero 4 #f 14)) _ special-divine-up-heroes-4-star)))
   (define special-divine-pool-name "特定神圣召唤")
   (define special-divine-pool
     (new divine-pool%
@@ -154,31 +154,31 @@
     (printf "欢迎来到 WOR 抽卡模拟器！\n")
     (printf "1. ~a\n" normal-spirits-pool-name)
     (printf "2. ~a -" special-spirits-pool-name)
-    (for ([h special-spirits-up-heroes-5-stars-lord])
+    (for ([h special-spirits-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-spirits-up-heroes-5-stars])
+    (for ([h special-spirits-up-heroes-5-star])
       (printf " ~a" h))
-    (for ([h special-spirits-up-heroes-4-stars])
+    (for ([h special-spirits-up-heroes-4-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "3. ~a -" limited-spirits-pool-name)
-    (printf " ~a\n" limited-spirits-up-hero-5-stars)
+    (printf " ~a\n" limited-spirits-up-hero-5-star)
     (printf "4. ~a\n" crazy-spirits-pool-name)
     (printf "5. ~a\n" surprise-spirits-pool-name)
     (printf "6. ~a\n" normal-ancient-pool-name)
     (printf "7. ~a -" special-ancient-pool-name)
-    (for ([h special-ancient-up-heroes-5-stars-lord])
+    (for ([h special-ancient-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-ancient-up-heroes-5-stars])
+    (for ([h special-ancient-up-heroes-5-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "8. ~a\n" normal-divine-pool-name)
     (printf "9. ~a -" special-divine-pool-name)
-    (for ([h special-divine-up-heroes-5-stars-lord])
+    (for ([h special-divine-up-heroes-5-star-lord])
       (printf " ~a" h))
-    (for ([h special-divine-up-heroes-5-stars])
+    (for ([h special-divine-up-heroes-5-star])
       (printf " ~a" h))
-    (for ([h special-divine-up-heroes-4-stars])
+    (for ([h special-divine-up-heroes-4-star])
       (printf " ~a" h))
     (printf "\n")
     (printf "10. ~a\n" crazy-divine-pool-name)
